@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/admin_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    <input type="hidden" th:value="${updateItemCode}" id="updateItemCode">
+    <!-- html 코드 작성 -->
+    <div class="row">
+        <div class="col">
+            <!-- 테이블 들어감 -->
+            <table class="table table-success table-striped text-center">
+                <colgroup>
+                    <col width="15%">
+                    <col width="25%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>상품코드</td>
+                        <td>상품명</td>
+                        <td>재고</td>
+                        <td>상태</td>
+                    </tr>
+                </thead>
+
+                <tbody style="overflow-y: scroll;" id="itemListtBody">
+                    <th:block th:each="e,state:${itemList}">
+                        <tr class="table-primary" th:onclick="updateItemForm([[${e.itemCode}]])">
+                            <td>[[${#lists.size(itemList)-state.index}]]</td>
+                            <td>[[${e.itemCode}]]</td>
+                            <td>[[${e.itemName}]]</td>
+                            <td>[[${e.itemStock}]]</td>
+                            <td>
+                                <th:block th:if="${e.itemStatus == 1}">
+                                    준비중
+                                </th:block>
+                                <th:block th:if="${e.itemStatus == 2}">
+                                    판매중
+                                </th:block>
+                                <th:block th:if="${e.itemStatus == 3}">
+                                    매진
+                                </th:block>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+
+            </table>
+
+
+        </div>
+        <div class="col detail-div" id="update-item-form">
+
+
+
+            <!-- Button trigger modal
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch demo modal
+            </button> -->
+
+            <!-- Modal -->
+            
+            
+
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="img-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="img-modal-body2">
+                    <img src="" class="rounded float-center" width="100%">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <label for="file">
+                        <div class="btn-upload btn btn-primary">사진 업로드하기</div>
+                    </label>
+                    <input class="fade" type="file" name="img" id="file">
+                    <button type="button" class="btn btn-secondary" onclick="changeImage()">변경하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImage(){
+            let img = document.querySelector("#file")
+            console.log(img.value);
+        }
+
+    </script>
+
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <script src="/js/content/admin/update_item.js"></script>
+
+</th:block>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/member/css/member.css">
+</head>
+<body>
+    <!-- 회원가입 화면 -->
+    <!-- 
+        일단은 회원의 아이디,
+        회원의 비밀번호 ,
+        회원의 닉네임 이렇게만 받을것
+     -->
+     <form action="/member/memberJoin" method="post" id="join-form">
+        <table>
+            <tr>
+               <td>아이디 </td> 
+               <td><input type="text" name="memberId"></td>
+               <td><input type="button" value="중복확인" onclick="checkDuplicateID()"></td>
+               <!-- 중복확인해서 동일한 아이디가 있는지 확인하는거 만들어볼까 -->
+            </tr>
+
+            <tr>
+                <td>비밀번호 </td>
+                <td><input type="text" name="memberPw"></td>
+            </tr>
+
+            <tr>
+                <td>닉네임</td>
+                <td><input type="text" name="memberNickName"></td>
+                <td><input type="button" value="중복확인" onclick="checkDuplicateNickName()"></td>
+            </tr>
+
+            <tr>
+                <td colspan="3" >
+                    <input type="button" value="생성하기" onclick="Join()">
+                </td>
+            </tr>
+
+        </table>
+     </form>
+     <script src="/member/js/member.js"></script>
+</body>
+</html>

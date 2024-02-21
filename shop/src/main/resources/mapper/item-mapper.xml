@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="itemMapper">
+    <resultMap id="member" type="com.green.shop.member.vo.MemberVO">
+        <id column="MEMBER_ID" property="memberId" />
+        <result column="MEMBER_PW" property="memberPw" />
+        <result column="MEMBER_NAME" property="memberName" />
+        <result column="GENDER" property="Gender" />
+        <result column="MEMBER_EMAIL" property="memberEmail" />
+        <result column="MEMBER_TEL" property="memberTel" />
+        <result column="MEMBER_ADDR" property="memberAddr" />
+        <result column="ADDR_DETAIL" property="AddrDetail" />
+        <result column="POST_CODE" property="postCode" />
+        <result column="JOIN_DATE" property="joinDate" />
+        <result column="MEMBER_ROLL" property="memberRoll" />
+
+    </resultMap>
+
+<!--    어차피 옮길거 같은데 일단 적기만-->
+    <resultMap id="itemCategory" type="com.green.shop.item.vo.ItemCategoryVO">
+        <result column="CATE_CODE" property="cateCode" />
+        <result column="CATE_NAME" property="cateName" />
+    </resultMap>
+
+    <resultMap id="item" type="com.green.shop.item.vo.ItemVO">
+<!--        조회되는 컬럼명 임!!!!!!!!!!!!!!!!!!!!!!!!-->
+        <id column="ITEM_CODE" property="itemCode" />
+        <result column="ITEM_NAME" property="itemName" />
+        <result column="ITEM_PRICE" property="itemPrice" />
+        <result column="ITEM_STOCK" property="itemStock" />
+        <result column="ITEM_INTRO" property="itemIntro" />
+        <result column="REG_DATE" property="itemRegDate" />
+        <result column="item_status" property="itemStatus"/>
+        <result column="STR_STATUS" property="strStatus"/>
+<!--        <result column="CATE_CODE" property="cateCode" />-->
+        <association property="itemCategoryVO" resultMap="itemCategory"/>
+        <collection property="itemImageList" resultMap="image"/>
+<!--        -->
+
+<!--        1:N 관계인경우 사용함!!!!!!!!!!!!!!!!!!!!-->
+    </resultMap>
+
+    <resultMap id="image" type="com.green.shop.item.vo.ItemImageVO">
+        <id column="IMAGE_CODE" property="imageCode"/>
+        <result column="ORIGEN_FILE_NAME" property="origenFileName"/>
+        <result column="ATTACHED_FILE_NAME_IMAGE" property="attachedFileName"/>
+        <result column="IS_MAIN" property="isMain"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+    </resultMap>
+
+
+    <!--옮길거 같긴한데 일단 여기에 적음-->
+    <!--    상품 등록-->
+<!--    <insert id="regItem">-->
+<!--        INSERT INTO SHOP_ITEM(-->
+<!--        ITEM_NAME ,-->
+<!--        ITEM_PRICE ,-->
+<!--        ITEM_INTRO ,-->
+<!--        CATE_CODE )-->
+<!--        VALUES (-->
+<!--        #{itemName} ,-->
+<!--        #{itemPrice} ,-->
+<!--        #{itemIntro} ,-->
+<!--        #{cateCode}-->
+<!--        )-->
+<!--    </insert>-->
+    <select id="testItem" resultMap="item">
+        SELECT
+            SHOP_ITEM.ITEM_CODE ,
+            ITEM_NAME ,
+            ITEM_PRICE ,
+            ITEM_STOCK ,
+            ITEM_INTRO ,
+            REG_DATE ,
+            item_category.CATE_CODE ,
+            CATE_NAME
+        FROM
+            SHOP_ITEM INNER JOIN ITEM_CATEGORY
+        ON
+            SHOP_ITEM.CATE_CODE = ITEM_CATEGORY.CATE_CODE
+    </select>
+
+    <select id="cateList" resultMap="itemCategory">
+        SELECT
+            CATE_CODE ,
+            CATE_NAME
+        FROM
+            ITEM_CATEGORY
+        ORDER BY CATE_CODE
+    </select>
+<!--테스트-->
+    <select id="cateList2" resultMap="item">
+        SELECT
+        CATE_CODE ,
+        CATE_NAME
+        FROM
+        ITEM_CATEGORY
+        ORDER BY CATE_CODE
+    </select>
+
+    <select id="itemList" resultMap="item"  >
+        SELECT
+            SHOP_ITEM.ITEM_CODE ,
+            ITEM_NAME ,
+            ITEM_PRICE ,
+            ITEM_STOCK ,
+            ITEM_INTRO ,
+            REG_DATE ,
+            CATE_CODE ,
+            ATTACHED_FILE_NAME_IMAGE
+        FROM
+            SHOP_ITEM INNER JOIN item_image
+        ON
+            SHOP_ITEM.ITEM_CODE = item_image.ITEM_CODE
+        WHERE
+            IS_MAIN = 'Y'
+        ORDER BY
+            REG_DATE DESC
+    </select>
+
+    <select id="itemDetail" resultMap="item"  >
+        SELECT
+            SHOP_ITEM.ITEM_CODE ,
+            ITEM_NAME ,
+            ITEM_PRICE ,
+            ITEM_STOCK ,
+            ITEM_INTRO ,
+            REG_DATE ,
+            CATE_CODE ,
+            ATTACHED_FILE_NAME_IMAGE ,
+            IS_MAIN
+        FROM
+            SHOP_ITEM INNER JOIN item_image
+        ON
+            SHOP_ITEM.ITEM_CODE = item_image.ITEM_CODE
+        WHERE
+            SHOP_ITEM.ITEM_CODE = ${itemCode}
+    </select>
+
+
+<!--    -->
+<!--   모달누르면 이미지 띄우기할려고 만든거임-->
+    <select id="selectImg" resultMap="image">
+        SELECT *
+        FROM item_image
+        WHERE IMAGE_CODE = ${imageCode}
+    </select>
+
+
+
+
+<!--    아래껀 그냥 한거-->
+<!--    <select id="mainImageList" resultMap="image">-->
+<!--        SELECT-->
+<!--            IMAGE_CODE ,-->
+<!--            ORIGEN_FILE_NAME ,-->
+<!--            ATTACHED_FILE_NAME_IMAGE ,-->
+<!--            IS_MAIN ,-->
+<!--            ITEM_IMAGE.ITEM_CODE-->
+<!--        FROM-->
+<!--            item_image INNER JOIN shop_item-->
+<!--        ON-->
+<!--            item_image.item_code = shop_item.ITEM_CODE-->
+<!--        WHERE-->
+<!--            IS_MAIN = 'Y'-->
+<!--    </select>-->
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

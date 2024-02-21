@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="headerFragment">
+  <!-- text-start 왼쪽 정렬 -->
+
+
+  <div class="row mt-3 text-center gx-1">
+    <div class="col-3">
+      <div class="p-3 bg-success text-white" onclick="goHome()">홈</div>
+    </div>
+    <div class="col-3">
+      <div class="p-3 bg-success text-white" onclick="goCarManagement()">차량관리</div>
+    </div>
+    <div class="col-3">
+      <div class="p-3 bg-success text-white" onclick="goSalesRegForm()">판매 정보 등록</div>
+    </div>
+    <div class="col-3">
+      <div class="p-3 bg-success text-white" onclick="goSaleList()">판매 목록</div>
+    </div>
+  </div>
+
+
+  <script>
+    function goHome() {
+      alert("홈")
+      location.href = "/goHome";
+    }
+
+    function goCarManagement() {
+      alert("차량관리")
+      location.href = "/goCarManagement";
+    }
+    function goSalesRegForm() {
+      alert("판매정보등록")
+      location.href = "/goSalesRegForm";
+    }
+    function goSaleList() {
+      alert("판매목록")
+      location.href = "/goSaleList";
+    }
+  </script>
+
+  <!-- 일단 어디에 적어야할지 몰라서 여기다가 적음 -->
+  <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
+  <!-- <script src="/js/fragment/user_header.js"></script> -->
+</th:block>
+
+</html>

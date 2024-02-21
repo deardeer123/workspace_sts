@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="buyMapper">
+    <resultMap id="buy" type="com.green.shop.buy.vo.BuyVO">
+        <id column="BUY_CODE" property="buyCode" />
+        <result column="MEMBER_ID" property="memberId" />
+        <result column="BUY_PRICE" property="buyPrice" />
+        <result column="BUY_DATE" property="buyDate" />
+        <collection property="buyDetailVOList" resultMap="buyDetail" />
+    </resultMap>
+
+    <resultMap id="buyDetail" type="com.green.shop.buy.vo.BuyDetailVO">
+        <id column="BUY_DETAIL_CODE" property="buyDetailCode"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="BUY_CNT" property="buyCnt"/>
+        <result column="TOTAL_PRICE" property="totalPrice"/>
+        <result column="BUY_CODE" property="buyCode"/>
+        <association property="itemVO" resultMap="itemMapper.item"/>
+    </resultMap>
+
+<!--    <resultMap id="item" type="com.green.shop.item.vo.ItemVO">-->
+<!--        &lt;!&ndash;        조회되는 컬럼명 임!!!!!!!!!!!!!!!!!!!!!!!!&ndash;&gt;-->
+<!--        <id column="ITEM_CODE" property="itemCode" />-->
+<!--        <result column="ITEM_NAME" property="itemName" />-->
+<!--        <result column="ITEM_PRICE" property="itemPrice" />-->
+<!--        <result column="ITEM_STOCK" property="itemStock" />-->
+<!--        <result column="ITEM_INTRO" property="itemIntro" />-->
+<!--        <result column="REG_DATE" property="itemRegDate" />-->
+<!--        &lt;!&ndash;        <result column="CATE_CODE" property="cateCode" />&ndash;&gt;-->
+<!--        <association property="itemCategoryVO" resultMap="itemCategory"/>-->
+<!--        <collection property="itemImageList" resultMap="image"/>-->
+<!--        &lt;!&ndash;        &ndash;&gt;-->
+<!--        &lt;!&ndash;        1:N 관계인경우 사용함!!!!!!!!!!!!!!!!!!!!&ndash;&gt;-->
+<!--    </resultMap>-->
+<!--&lt;!&ndash;    오류나서 가져옴&ndash;&gt;-->
+<!--    <resultMap id="itemCategory" type="com.green.shop.item.vo.ItemCategoryVO">-->
+<!--        <id column="CATE_CODE" property="cateCode" />-->
+<!--        <result column="CATE_NAME" property="cateName" />-->
+<!--    </resultMap>-->
+<!--    &lt;!&ndash;    오류나서 가져옴&ndash;&gt;-->
+<!--    <resultMap id="image" type="com.green.shop.item.vo.ItemImageVO">-->
+<!--        <id column="IMAGE_CODE" property="imageCode"/>-->
+<!--        <result column="ORIGEN_FILE_NAME" property="origenFileName"/>-->
+<!--        <result column="ATTACHED_FILE_NAME_IMAGE" property="attachedFileName"/>-->
+<!--        <result column="IS_MAIN" property="isMain"/>-->
+<!--        <result column="ITEM_CODE" property="itemCode"/>-->
+<!--    </resultMap>-->
+<!--너무 흉측해지는데-->
+
+
+
+
+
+
+    <insert id="insertBuy">
+        INSERT INTO shop_buy(
+            BUY_CODE ,
+            MEMBER_ID ,
+            BUY_PRICE
+        )
+        VALUES (
+            #{buyCode} ,
+            #{memberId} ,
+            #{buyPrice}
+        )
+    </insert>
+
+    <insert id="insertBuyDetail">
+        INSERT INTO buy_detail(
+            ITEM_CODE ,
+            BUY_CNT ,
+            TOTAL_PRICE ,
+            BUY_CODE
+        )
+        VALUES
+        <foreach collection="buyDetailVOList" item="buyDetail" separator=",">
+            (
+            #{buyDetail.itemCode} ,
+            #{buyDetail.buyCnt} ,
+            #{buyDetail.totalPrice} ,
+            #{buyCode}
+            )
+        </foreach>
+
+    </insert>
+
+
+<!--    집어 넣기 전에 buyCode 가져오기-->
+    <select id="getBuyCode" resultType="int">
+        select IFNULL(MAX(buy_code),0)+1
+        from shop_buy
+    </select>
+<!--    cart_code를 통해서 필요한 정보 가져오기-->
+
+    <insert id="insertBuyDetail1">
+        INSERT INTO buy_detail(
+            ITEM_CODE ,
+            BUY_CNT ,
+            TOTAL_PRICE ,
+            BUY_CODE
+        ) values (
+            #{itemCode} ,
+            #{buyCnt} ,
+            #{totalPrice} ,
+            #{buyCodes}
+        )
+    </insert>
+<!--처음꺼-->
+    <select id="selectBuyList1" resultMap="buy">
+        SELECT
+            *
+        FROM
+            shop_buy INNER JOIN buy_detail
+            ON
+                shop_buy.buy_code = buy_detail.buy_code
+            INNER JOIN shop_item
+            ON
+                buy_detail.ITEM_CODE = shop_item.ITEM_CODE
+            INNER JOIN item_image
+            ON
+                shop_item.item_code = item_image.item_code
+        WHERE
+            shop_buy.buy_code IN (
+                SELECT buy_code
+                FROM shop_buy
+                WHERE member_id = #{memberId}
+            ) AND IS_MAIN = 'Y'
+    </select>
+
+<!--    바꾼거 구매목록조회(사용자용)-->
+    <select id="selectBuyList" resultMap="buy">
+        SELECT
+            detail.buy_code
+            , buy.buy_price
+            , Detail.item_code
+            , buy_cnt
+            , total_price
+            , item_name
+            , ATTACHED_FILE_NAME_IMAGE
+            , buy_date
+        FROM
+            buy_detail as detail INNER JOIN shop_item as item
+            ON detail.ITEM_CODE = item.ITEM_CODE
+            INNER JOIN item_image as img
+            ON img.ITEM_CODE = item.ITEM_CODE
+            INNER join shop_buy as buy
+            ON buy.buy_code = detail.BUY_CODE
+        WHERE
+            is_main = 'Y' AND buy.MEMBER_ID=#{memberId}
+        ORDER BY buy_date DESC
+    </select>
+
+<!--    관리자님 그냥 쿼리문 쓰세요-->
+    <select id="selectAdminBuyList" resultMap="buy">
+
+        SELECT
+            detail.buy_code
+            , buy.buy_price
+            , Detail.item_code
+            , buy_cnt
+            , total_price
+            , item_name
+            , ATTACHED_FILE_NAME_IMAGE
+            , buy.buy_date
+            , buy.member_id
+        FROM
+            buy_detail as detail INNER JOIN shop_item as item
+            ON detail.ITEM_CODE = item.ITEM_CODE
+            INNER JOIN item_image as img
+            ON img.ITEM_CODE = item.ITEM_CODE
+            INNER join shop_buy as buy
+            ON buy.buy_code = detail.BUY_CODE
+        WHERE
+            is_main = 'Y'
+            AND buy.buy_date &gt; #{searchMinDate}
+            AND buy.buy_date &lt; #{searchMaxDate}
+        <if test='searchValue != null and !searchValue.equals("")' >
+            AND buy.${searchType} = #{searchValue}
+        </if>
+        ORDER BY buy_date DESC
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

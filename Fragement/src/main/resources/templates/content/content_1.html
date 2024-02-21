@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{fragment/layout}">
+
+    <!-- 일케 쓰는거 아님 -->
+    <!-- <th:block th:fragment="contentFragement">
+        <h3>content_1.html 파일입니다.</h3>
+    </th:block> -->
+
+    <th:block layout:fragment="contentFragement">
+        <h3>컨텐츠_1  {layout:fragment} html 파일 입니다.</h3>
+        <a href="/content2">content_2.html 파일로 이동~~~~~~</a>
+    </th:block>
+
+</html>

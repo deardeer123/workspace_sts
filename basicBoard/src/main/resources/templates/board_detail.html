@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .container{
+        width: 650px;
+        /* 폭 */
+        margin: 0 auto; 
+        /* 상하 여백은 0 옆 여백은 똑같이 준다는뜻 */
+    }
+    table{
+        border: 2px solid black;
+        width: 100%;
+        /* % 기준은 부모태그 width임 100%이므로 600px나옴  */
+        border-collapse: collapse;
+        /* 쉘 테두리 안겹치게 */
+        background-color: whitesmoke
+    }
+    tr,td{
+        border: 1px solid black;
+    }
+    .btn-div{
+        text-align: center;
+        margin-top: 16px;
+    }
+</style>
+
+</head>
+<body>
+테스트 상세보기<br>
+<div class = "container">
+<table>
+    <tr>
+        <td>글번호</td>
+        <td>[[${basicBoardVO.boardNum}]]</td>
+        <td>작성자</td>
+        <td>[[${basicBoardVO.writer}]]</td>
+        <td>작성일</td>
+        <td>[[${basicBoardVO.createDate}]]</td>
+    </tr>
+    <tr>
+        <td>제목</td>
+        <td colspan="5">[[${basicBoardVO.boardTitle}]]</td>
+    </tr>
+
+    <tr>
+        <td>내용</td>
+        <td colspan="5">[[${basicBoardVO.boardContent}]]</td>
+    </tr>
+
+</table>
+<!-- [[${basicBoardVO.boardNum}]]<br>
+[[${basicBoardVO.boardTitle}]]<br>
+[[${basicBoardVO.boardContent}]]<br>
+[[${basicBoardVO.writer}]]<br>
+[[${basicBoardVO.createDate}]]<br>
+[[${basicBoardVO.readCnt}]] -->
+<div class="btn-div">
+    <input type="button" onclick="goMain();" value="뒤로가기">
+    <input type="button" th:onclick="goModify([[${basicBoardVO.boardNum}]])" value="수정하기">
+    <input type="button" th:onclick="goDelete([[${basicBoardVO.boardNum}]])" value="삭제하기">
+</div>
+
+</div>
+<script>
+    function goMain(){
+        location.href="/back"
+    }
+    function goModify(boardNum){
+        location.href=`/modifyBoard?boardNum=${boardNum}`;
+    }
+    function goDelete(boardNum){
+        location.href=`/deleteBoard?boardNum=${boardNum}`;
+    }
+
+</script>
+
+</body>
+</html>

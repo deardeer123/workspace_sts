@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{fragment/admin_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴 때 같이 실행되는 CSS -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    
+<form id="reg-form" class="row g-3" method="post" action="/admin/regItem" enctype="multipart/form-data">
+    <div>
+        <!-- html 코드 작성 -->
+        <div class="row">
+            <div class="col">
+                <label for="" class="form-label">카테고리명</label>
+                <select class="form-select reg-div" aria-label="Default select example" name="cateCode">
+                    <!-- <option selected>카테고리명</option> -->
+            
+                    <option th:value="${e.cateCode}" th:each="e:${cateList}">[[${e.cateName}]]</option>
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row reg-div">
+            <!-- 입력창 -->
+            <div class="col-12">
+                <label for="" class="form-label">상품명</label>
+                <input type="text" class="form-control" id="memberId" placeholder="" name="itemName">
+              </div>
+        </div>
+
+        <div class="row reg-div">
+            <div class="col-12">
+                <label for="" class="form-label">가격</label>
+                <input type="text" class="form-control" id="memberId" placeholder="" name="itemPrice">
+              </div>
+        </div>
+
+        <div class="row reg-div">
+            <div class="col-12">
+                <label for="" class="form-label">상품소개</label>
+                <textarea class="form-control" aria-label="With textarea" name="itemIntro"></textarea>
+              </div>
+        </div>
+        <div class="row reg-div">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">상품 사진</label>
+                    <input class="form-control" type="file" id="formFile" name="img1">
+                  </div>
+            </div>
+        </div>
+
+        <div class="row reg-div">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="formFileMultiple" class="form-label">상세보기 사진</label>
+                    <input class="form-control" type="file" id="formFileMultiple"  name="img2" multiple>
+                </div>
+            </div>
+        </div>
+
+        <div class="row reg-div">
+            <div class="col"></div>
+        </div>
+
+    
+        <!--버튼 하나 -->
+        <div class="row reg-div">
+            <div class="col d-grid gap-2 d-md-flex justify-content-md-end reg-div">
+                <label for="" class="form-label"></label>
+                <button type="button" class="btn btn-primary" onclick="goItemReg()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                    </svg> 등록하기
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function goItemReg(){
+        document.querySelector('#reg-form').submit();
+    }
+</script>
+
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴 때 같이 실행되는 JS -->
+    <!-- <script src="/"></script> -->
+</th:block>
+
+</html>

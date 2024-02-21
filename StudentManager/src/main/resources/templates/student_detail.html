@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    학생 상세 정보<br>
+    학번 : [[${stuInfo.stuNo}]]
+    이름 : [[${stuInfo.stuName}]]<br>
+    국어점수 : [[${stuInfo.korScore}]]<br>
+    영어점수 : [[${stuInfo.engScore}]]<br>
+    소개 : [[${stuInfo.intro}]]<br>
+
+    <input type="button" value="학생삭제" th:onclick="goDelete([[${stuInfo.stuNo}]])">
+    <!-- <input type="button" value="학생삭제" th:onclick="|'location.href='@{goDelete(stuNo=${stuNo})}'|" -->
+<script>
+    function goDelete(stuNo){
+        // location.href="deleteStu?name=" + stuNo;
+        location.href=`deleteStu?name=${stuNo}`;
+    }
+</script>
+</body>
+</html>

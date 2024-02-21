@@ -1,0 +1,34 @@
+/* 모든 html에서 공통적으로 적용되는 CSS */
+@font-face {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+.container-fluid{
+    width:"80%";
+}
+
+body{
+    font-family: 'LINESeedKR-Bd';
+    font-size: 14pt;
+}
+/* 쇼핑몰 제목 크기 변경 */
+.main-title{
+    font-size: 70pt;
+}
+.modal-body{
+    font-size: 15pt;
+}
+.pointer-span:hover{
+    cursor: pointer;
+    background-color: red;
+}
+
+.header-div{
+    margin-bottom: 3rem;
+}
+
+.reg-div{
+    margin-bottom: 1rem;
+}

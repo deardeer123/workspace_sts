@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <h2>
+        파일 업로드 테스트 입니다!!!!!!!!!!!!!!!!!!!!!
+    </h2>
+    <!-- enctype 파일 업로드할때 필요함 -->
+    <!-- 없으면 문자열로 보냄!!! -->
+    <form action="/file/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="img1"> <br>
+        <input type="file" name="img2"> <br>
+        <input type="file" name="img3" multiple> <br>
+        <!-- <input type="text" value="테스트123123"> <br> -->
+        <input type="submit" value="업로드">
+    </form>
+</body>
+</html>

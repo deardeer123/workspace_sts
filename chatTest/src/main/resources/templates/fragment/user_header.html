@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="headerFragment"> 
+<!-- headerFragment -->
+    <div class="row m-5 text-center gx-1">
+        
+        <th:block th:each="e,state:${sideMenuList}" th:if="${selectMenuIndex == e.menuIndex}">
+            <div class="col-12 ">
+                <div class="bg-primary text-white">[[${e.menuName}]]</div>
+            </div>        
+        </th:block>
+
+    </div>
+
+
+    <script src="/js/fragment/user/user_header.js"></script>
+</th:block>
+</html>

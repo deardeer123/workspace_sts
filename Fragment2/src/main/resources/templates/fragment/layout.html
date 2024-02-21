@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title></title>
+
+<th:block layout:fragment="content-css">
+
+</th:block>
+<style>
+    @font-face {
+    font-family: 'DOSSaemmul';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSSaemmul.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+    body{
+        font-family: 'DOSSaemmul';
+    }
+    h3{
+        background-color: cadetblue;
+    }
+    
+</style>
+</head>
+<body>
+    <h3>layout 파일 입니다. 이름은&nbsp;[[${name}]]&nbsp;나이는&nbsp;[[${age}]] </h3>
+    이게 되나??????????
+    <!-- <th:block layout:fragment="content_css"></th:block> -->
+    <div>
+        <!-- 메뉴 넣을곳 -->
+        <th:block th:replace="fragment/menu::menuFragment"></th:block>
+    </div>
+
+    <div>
+        <!--사이드 메뉴 넣을곳-->
+        <th:blcok th:replace="fragment/side_menu::menuSideFragment"></th:blcok>
+    </div>
+
+    <div>
+        <!--일단 리스트 들어갈곳-->
+        <th:block layout:fragment="contentFragment"></th:block>
+    </div>
+   
+    <div>
+        <!--제일 마지막 footer-->
+        <th:block th:replace="fragment/footer::footerFragment"></th:block>
+    </div>
+    <th:block layout:fragment="content_js"></th:block>
+    
+</body>
+</html>

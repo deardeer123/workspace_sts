@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+    <th:block th:fragment="sideFragment">
+        <ul class="list-group">
+            <!-- 유저 사이드 -->
+        
+            <th:block th:each="e,state:${sideMenuList}">
+                <li class="list-group-item list-group-item-primary"
+                th:classappend="${selectMenuIndex == state.index+1 ? 'active' : ''}"
+                th:onclick='goPage([[${e.pageName}]],[[${state.index+1}]])'>[[${e.menuName}]]</li>
+            </th:block>
+            
+            
+        </ul>
+        <script src="/js/fragment/user/user_side.js"></script>
+    </th:block>
+
+</html>

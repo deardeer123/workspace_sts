@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="carMapper">
+    <resultMap id="car" type="com.test.carManagement.vo.CarVO">
+        <id column="MODEL_NUM" property="modelNum" />
+        <result column="MODEL_NAME" property="modelName" />
+        <result column="MODEL_PRICE" property="modelPrice" />
+        <result column="MODEL_MANUFACTURER" property="modelManufacturer" />
+    </resultMap>
+
+    <resultMap id="sales" type="com.test.carManagement.vo.SalesVO">
+        <id column="SALES_NUM" property="salesNum"/>
+        <result column="CAR_BUYER" property="carBuyer"/>
+        <result column="BUYER_TEL" property="buyerTel"/>
+        <result column="MODEL_COLOR" property="modelColor"/>
+        <result column="SALES_DATE" property="salesDate"/>
+        <association property="carVO" resultMap="carMapper.car"/>
+    </resultMap>
+
+    <select id="selectCarList" resultMap="car">
+        SELECT
+            MODEL_NUM ,
+            MODEL_NAME,
+            MODEL_MANUFACTURER
+        FROM
+            CAR_INFO
+    </select>
+
+    <insert id="insertCar">
+        INSERT INTO CAR_INFO(
+            MODEL_NAME ,
+            MODEL_PRICE ,
+            MODEL_MANUFACTURER
+        ) VALUES (
+            #{modelName} ,
+            #{modelPrice} ,
+            #{modelManufacturer}
+        )
+    </insert>
+
+    <insert id="insertSaleInfo">
+        INSERT INTO sales_info(
+            car_buyer ,
+            buyer_tel ,
+            model_color ,
+            model_num
+        )
+        VALUES(
+            #{carBuyer} ,
+            #{buyerTel} ,
+            #{modelColor} ,
+            #{modelNum}
+        )
+    </insert>
+
+    <select id="selectSalesList" resultMap="sales">
+
+        SELECT
+            CAR_BUYER ,
+            BUYER_TEL ,
+            SALES_DATE ,
+            MODEL_COLOR ,
+            MODEL_NAME ,
+            MODEL_PRICE
+        FROM
+            sales_info INNER JOIN car_info
+            ON sales_info.MODEL_NUM = car_info.MODEL_NUM
+        ORDER BY SALES_DATE DESC
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

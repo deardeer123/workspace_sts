@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    div{
+        background-color: aqua;
+    }
+    span{
+        background-color: blue;
+    }
+</style>
+</head>
+<body>
+<h1>두번째 페이지!!!!!!</h1>
+이름 : [[${name}]] <br>
+나이 : [[${age}]] <br>
+주소 : [[${address}]] <br>
+    <div th:text="${name}">이름 : </div>
+    <div th:text="${tel}">전화 : </div>
+    <div th:text="${address}">주소 : </div>
+    <span th:text="${age}"></span><br>
+    [[${name}]]
+
+</body>
+</html>

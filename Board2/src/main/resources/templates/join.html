@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .container{
+        background-color: cadetblue;
+        width: 600px;
+        margin: 0 auto; 
+    }
+    table{
+        width: 100%;
+    }
+    .btn-div{
+        margin-top: 16px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1>회원가입 화면!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+<form action="/member/join" method="post">
+    <div class="container">
+        <table>
+            <tr>
+                <td>아이디 :</td>
+                <td><input type="text" name="memberID"></td>
+            </tr>
+            <tr>
+                <td>비밀번호 :</td>
+                <td><input type="text" name="memberPW"></td>
+            </tr>
+            <tr>
+                <td>이름 :</td>
+                <td><input type="text" name="memberName"></td>
+            </tr>
+            <tr>
+                <td>성별 :</td>
+                <td>남<input type="radio" name="gender" value="남" checked >
+                    여<input type="radio" name="gender" value="여">
+                </td>
+            </tr>
+
+            <tr>
+                <td>이메일 :</td>
+                <td><input type="email" name="memberEmail"></td>
+            </tr>
+        </table>
+        <div class="btn-div">
+            <input type="submit" value="회원가입">
+        </div>
+        
+    </div>
+</form>
+</body>
+</html>

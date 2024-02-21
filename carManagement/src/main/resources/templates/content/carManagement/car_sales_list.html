@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/carManagement_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    <!-- html 코드 작성 -->
+    <div class="row">
+        <div class="col">
+            <table class="table text-center table-bordered mt-5 align-middle">
+                <colgroup>
+                    <col width="14%">
+                    <col width="*">
+                    <col width="14%">
+                    <col width="14%">
+                    <col width="14%">
+                    <col width="14%">
+                    <col width="14%">
+                </colgroup>
+                <thead class="table-success text-white">
+                    <tr>
+                        <td rowspan="2" class="align-middle ">
+                            <div class="row">
+                                <div class="col">
+                                    No.
+                                </div>
+                            </div>
+                        </td>
+                        <td colspan="4">
+                            <div class="row">
+                                <div class="col">
+                                    구매자정보
+                                </div>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="row">
+                                <div class="col">
+                                    차량번호
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    구매자명
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    연락처
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    구매일
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    색상
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    모델명
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    금액
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 여기다가 반복 -->
+                    <th:block th:if="${#lists.isEmpty(salesList)}">
+                        <tr>
+                            <td colspan="7">자료 없음!!</td>
+                        </tr>
+                    </th:block>
+
+                    <th:block th:if="${!#lists.isEmpty(salesList)}">
+                        <th:block th:each="e,state:${salesList}">
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            [[${#lists.size(salesList)-state.index}]]
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">[[${e.carBuyer}]]</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">[[${e.buyerTel}]]</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">[[${e.salesDate}]]</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">[[${e.modelColor}]]</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">[[${e.carVO.modelName}]]</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">[[${#numbers.formatCurrency(e.carVO.modelPrice)}]]</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </th:block>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <!-- <script src="/"></script> -->
+</th:block>
+
+</html>

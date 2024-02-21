@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="boardMapper">
+    <resultMap id="board" type="com.green.Board2.vo.BoardVO">
+        <result column="BOARD_NUM" property="boardNum" />
+        <result column="TITLE" property="title" />
+        <result column="CONTENT" property="content" />
+        <result column="WRITER" property="writer" />
+        <result column="CREATE_DATE" property="createDate" />
+        <result column="READ_CNT" property="readCnt" />
+    </resultMap>
+
+    <select id="selectBoardList" resultMap="board">
+        SELECT
+            BOARD_NUM ,
+            TITLE ,
+            CONTENT ,
+            WRITER ,
+            CREATE_DATE ,
+            READ_CNT
+        FROM
+            BOARD
+        <if test='searchValue != null and !searchValue.equals("")'>
+        WHERE
+            ${searchType} LIKE CONCAT('%',#{searchValue},'%')
+        </if>
+<!--    searchValue가 null이 아니면 + 빈값이 아닐때만 쿼리가 실행-->
+        ORDER BY BOARD_NUM DESC
+        LIMIT ${displayDataCnt} OFFSET ${(displayDataCnt) * (nowPage-1)}
+    </select>
+
+    <insert id="insertBoard">
+        INSERT INTO BOARD(
+            TITLE ,
+            CONTENT ,
+            WRITER
+        )
+        VALUE(
+            #{title} ,
+            #{content} ,
+            #{writer}
+        )
+    </insert>
+
+    <select id="selectBoard" resultMap="board">
+        SELECT
+            BOARD_NUM ,
+            TITLE ,
+            CONTENT ,
+            WRITER ,
+            CREATE_DATE
+        FROM
+            BOARD
+        WHERE
+            BOARD_NUM = #{boardNum}
+    </select>
+
+    <update id="updateCnt">
+        UPDATE BOARD
+        SET READ_CNT = READ_CNT + 1
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
+
+    <update id="modifyBoard">
+        UPDATE BOARD
+        SET
+            TITLE = #{title} ,
+            CONTENT = #{content}
+        WHERE
+            BOARD_NUM = #{boardNum}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE FROM BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </delete>
+
+    <select id="selectBoardCnt" resultType="int" >
+        SELECT COUNT(BOARD_NUM)
+        FROM BOARD
+        <if test='searchValue != null and !searchValue.equals("")'>
+            WHERE
+            ${searchType} LIKE CONCAT('%',#{searchValue},'%')
+        </if>
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+
+<body>
+
+  <th:block th:if="${session.memberInfo != null}">
+    <input type="hidden" id="login-id" th:value="${session.memberInfo.memberId}">
+    <script>
+      const id = document.querySelector('#login-id').value
+      alert(`${id}님 오신걸 환영합니다.`)
+      alert('[[${session.memberInfo.memberId}]]이게 왜되지???')
+      alert(`이것도 될까?[[${session.memberInfo.memberId}]] `);
+      location.href = `/item/list`
+    </script>
+  </th:block>
+
+  <th:block th:if="${session.memberInfo == null}">
+    <script>
+      alert("틀림")
+      location.href = '/member/login'
+    </script>
+  </th:block>
+  </th:block>
+
+</body>
+
+</html>

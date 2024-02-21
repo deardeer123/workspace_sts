@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/personal_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    <!-- html 코드 작성 -->
+    <div class="row">
+        <div class="col">
+            <!-- 시작!!! -->
+            <th:block th:if="${#lists.isEmpty(buyList)}">
+                사신 물건이 없어요
+            </th:block>
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+
+                <div class="accordion-item">
+                    <th:block th:each="e , state : ${buyList}">
+                        <h2 class="accordion-header">
+                            <!-- 보이는 부분 -->
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                th:data-bs-target="${'#collapse-'+state.count}" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                                [[${#numbers.formatInteger(#lists.size(buyList) - state.index , 2)}]] |
+                                [[${e.buyDetailVOList[0].itemVO.itemName}]]
+                                <th:block th:if="${#lists.size(e.buyDetailVOList) != 1}">
+                                    외 [[${#lists.size(e.buyDetailVOList) - 1}]]개 구매
+                                </th:block>
+
+                                <th:block th:if="${#lists.size(e.buyDetailVOList) == 1}">
+                                    구매
+                                </th:block>
+                                <span style="margin-right: 1em; margin-left: 1em;">[[${e.buyDate}]]</span>
+                                총 [[${#numbers.formatCurrency(e.buyPrice)}]]원 결제
+                            </button>
+                        </h2>
+
+                        <div th:id="${'collapse-'+state.count}" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <!-- 딸깍하면 보이는 부분 -->
+                                
+                                <table class="table table-hover align-middle">
+                                    <colgroup>
+                                        <col width="10%">
+                                        <col width="*">
+                                        <col width="15%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td style="text-align: center;">구매상품</td>
+                                            <td>수 량</td>
+                                            <td>결제 금액</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <th:block th:each="e1 , state1: ${e.buyDetailVOList}">
+                                            <tr>
+                                                <td>[[${#lists.size(e.buyDetailVOList) - state1.index}]]</td>
+                                                <td>
+                                                    
+                                                        <img th:src="@{/upload/} + ${e1.itemVO.itemImageList[0].attachedFileName}"
+                                                        class="rounded" alt="햄스타" width="15%">
+                                                 
+                                                    
+                                                   
+                                                        [[${e1.itemVO.itemName}]]
+                                                    
+                                                </td>
+                                                <td>[[${e1.buyCnt}]]</td>
+                                                <td>
+                                                    [[${#numbers.formatCurrency(e1.totalPrice)}]]원
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+</th:block>
+</div>
+
+</div>
+</div>
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <!-- <script src="/"></script> -->
+</th:block>
+
+</html>

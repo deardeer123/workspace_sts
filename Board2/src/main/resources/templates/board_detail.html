@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .container{
+        width: 650px;
+        margin: 0px auto;
+    }
+    table{
+        width: 100%;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .board-tr,.board-td{
+        border: 1px solid black;
+    }
+    .btn-div{
+        margin-top: 16px;
+        text-align: center;
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <table style="background-color: greenyellow;">
+            <tr class="board-tr">
+                <td>글번호 : </td>
+                <td>[[${board.boardNum}]]</td>
+                <td>작성자 : </td>
+                <td>[[${board.writer}]]</td>
+                <td>작성일 : </td>
+                <td>[[${board.createDate}]]</td>
+            </tr>
+
+            <tr class="board-tr">
+                <td>제목 : </td>
+                <td colspan="5">[[${board.title}]]</td>
+            </tr>
+
+            <tr class="board-tr">
+                <td>내용 : </td>
+                <td colspan="5">[[${board.content}]]</td>
+            </tr>
+
+        
+
+        </table>
+        <div class="btn-div">
+            <span><input type="button" onclick="goback()" value="뒤로가기"></span>
+            <th:block th:if="${session.loginInfo != null}">
+                <th:block th:if="${(session.loginInfo.memberID == board.writer) or (session.loginInfo.isAdmin == 'Y')}">
+                    <span><input type="button" th:onclick="goModify([[${board.boardNum}]])" value="수정"></span>
+                    <span><input type="button" th:onclick="goDelete([[${board.boardNum}]])" value="삭제"></span> 
+                </th:block>
+            </th:block>
+        </div>
+
+    
+        <th:block th:if="${session.loginInfo != null}">
+            <div class="btn-div">
+                <form action="/reply/insertReply" method="post">
+                    <input type="hidden" name="boardNum" id="boardNum" th:value="${board.boardNum}">
+                    <span><input type="text" name="content" id="replyContent" size=40></span>
+                    <span><input type="submit"value="등록"></span>
+                </form>
+            </div>
+            
+        </th:block>
+
+        <th:block th:if="${!#lists.isEmpty(replyList)}">
+            <h1>댓글</h1>
+            <div style="background-color: darkseagreen;">
+                <th:block th:each="e:${replyList}">
+                    <div>
+                        작성자 : [[${e.writer}]]
+                    </div>
+                    <div>
+                        날짜 : [[${e.createDate}]]
+                    </div>
+
+                    <div  th:value="${e.content}" id="change">
+                        [[${e.content}]]
+                    </div>
+
+                    <div>
+                        <th:block th:if="${session.loginInfo != null}">
+                            <th:black th:if="${(e.writer == session.loginInfo.memberID) or (session.loginInfo.isAdmin == 'Y')}">
+                                <input type="button" value="삭제" th:onclick="goDeleteReply([[${e.replyNum}]])">
+                                <input type="button" value="수정" onclick="goUpdate()">
+                            </th:black>
+                        </th:block>
+                    </div>       
+                </th:block>
+            </div>
+        </th:block>
+
+
+        
+    </div>
+    <script>
+        function goback(){
+            location.href=`/board/list`
+        }
+        function goModify(boardNum){
+            location.href=`/board/modifyBoard?boardNum=${boardNum}`
+        }
+        function goDelete(boardNum){
+            location.href=`/board/deleteBoard?boardNum=${boardNum}`
+        }
+        function goReply(boardNum){
+            let content = document.getElementById("replyContent").value
+            location.href=`/reply/insertReply?content=${content}&boardNum=${boardNum}`;
+        }
+        function goDeleteReply(replyNum){
+            let boardNum = document.getElementById("boardNum").value
+            location.href=`/reply/deleteReply?replyNum=${replyNum}&boardNum=${boardNum}`;
+        }
+        function goUpdate(){
+            let item = document.getElementById("change").value
+            alert(`${item}`)
+            
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/user_layout}" >
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+   
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+  
+
+    <!-- html 코드 작성 -->
+    <div class="row justify-content-center">
+        <div class="col-8 ">
+            <div class="row mb-3">
+                <!-- 윗  상품정보-->
+                <div class="offset-3 col-3">
+                    <!-- 사진 -->
+                    <th:block th:each="e : ${itemVO.itemImageList}">
+                        <th:block th:if="${e.isMain == 'Y'}">
+                            <img th:src="@{/upload/} + ${e.attachedFileName}" class="rounded float-end" alt="햄스타" width="100%">
+                        </th:block>
+                    </th:block>  
+                </div>
+                <div class="col-3">
+                    <!-- 정보 -->
+                    <form action="/cart/insertCart" method="post" id="insert-cart-form">
+                        <div class="row mb-2 mt-2">
+                            <div class="col-12">[[${itemVO.itemName}]]</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-12 ">[[${#numbers.formatCurrency(itemVO.itemPrice)}]]</div>
+                            <input id="price" th:value="${itemVO.itemPrice}"   type="hidden">
+                            
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-4 align-items-center " style="font-size: 0.9em;">수량</div> 
+                            <div class="col-8">
+                                <form id="insert-buy-form" method="post" action ="/buy/insertBuy">
+                                    <input type="number" class="form-control" id="count" name="cartCnt" value="1">
+                                    <!-- name을 buy_cnt로 -->
+                                    <input type="hidden" name ="itemCode" th:value="${itemVO.itemCode}">
+                                    <input type="hidden" name ="totalPrice">
+                                </form>
+                                
+                            </div> 
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-12" style="font-size: 0.8em;">총구매가격
+                                <label id="total">[[${#numbers.formatCurrency(itemVO.itemPrice)}]]</label>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="row mb-2">
+                        <div class="col-6 d-grid">
+                            <input type="button" class="btn btn-primary" value="장바구니" th:onclick="goCart1( [[${itemVO.itemCode}]] , [[${session.memberInfo}]] )">
+                        </div>
+                        
+                        <div class="col-6 d-grid">
+                            <form action="/buy/buycart" method="post" id="go-buy-form">
+                                <input type="hidden" name="itemCode" th:value="${itemVO.itemCode}">
+                                <input type="hidden" id="buyCnt" name="buyCnt" value="">
+                                <input type="hidden" id="totalPrice" name="totalPrice" value="">
+                                <input type="button" class="btn btn-primary" value="바로구매" th:onclick="gobuy1([[${itemVO.itemPrice}]],[[${session.memberInfo}]])">
+                            </form>   
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <!-- 중간 상품소개 -->
+                <div class="col text-center ">
+                    [[${itemVO.itemIntro}]]
+
+                </div>
+            </div>
+            
+            <th:block th:each="e : ${itemVO.itemImageList}">
+                <th:block th:if="${e.isMain == 'N'}">
+                    <div class="row">
+                    <!-- 아래 이미지-->
+                        <div class="col-12 text-center ">
+                            <img th:src="@{/upload/} + ${e.attachedFileName}">
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+                
+    </div>
+<script>
+    function gobuy1(itemPrice,memberInfo){
+        //상품구매할때 필요한 정보는 
+        // private int itemCode;
+
+        // private int buyCnt; 
+
+        // private int totalPrice;
+
+        // private int buyCode;
+        // private String memberId;
+        // private int buyPrice;
+        // private int buyDate;
+        if(memberInfo == null){
+            alert("로그인 해주세요");
+            return ;
+        }
+        
+
+        let count1 = document.querySelector("#count").value;
+        console.log(count1);
+        
+        document.querySelector("#buyCnt").value = count1
+        
+        document.querySelector("#totalPrice").value = parseInt(count1) * parseInt(itemPrice);
+        console.log(document.querySelector("#totalPrice").value);
+        
+        document.querySelector("#go-buy-form").submit();
+    }
+</script>
+
+    
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <script src="/js/content/item/item_detail.js"></script>
+</th:block>
+</html>

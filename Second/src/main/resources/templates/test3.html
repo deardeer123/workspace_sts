@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    table{
+         border: 1px;       
+    }
+    th,td{
+        border: 1px;
+    }
+</style>
+</head>
+<body>
+    <h1>여기까지 오셨습니까?</h1>
+
+    <div>
+        <table>
+            <tr>
+                <td>이름</td>
+                <td th:text="${testVO.name}"></td>
+                <td>연락처</td>
+                <td th:text="${testVO.tel}"></td>
+            </tr>
+            <tr>
+                <td>학력</td>
+                <td th:text="${testVO.grade}"></td>
+                <td>지원구분</td>
+                <td th:text="${testVO.career}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <td>자격증 정보</td>
+                <td>
+                    [[${testVO.license}]]
+                    [[${testVO.licenseDate}]]
+                    [[${testVO.licenseGroup}]]
+                </td>
+            </tr>
+
+            <tr>
+                <td>경력 정보</td>
+                <td>
+                    <span th:text="${testVO.company}"></span>
+                    <span th:text="${testVO.companyDept}"></span>
+                    <span th:text="${testVO.companyYear}"></span>년
+                    <span th:text="${testVO.companyMonth}"></span>개월
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <td>자기소개</td>
+            </tr>
+
+            <tr>
+                <td th:text="${testVO.intro}"></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

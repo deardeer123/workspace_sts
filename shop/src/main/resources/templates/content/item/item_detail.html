@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/user_layout}" >
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    <!-- html 코드 작성 -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <!-- 대표이미지 -->
+            <th:block th:each="e : ${itemVO.itemImageList}">
+                <th:block th:if="${e.isMain == 'Y'}">
+                    <img th:src="@{/upload/} + ${e.attachedFileName}" class="rounded mx-auto d-block" style="width: 15em" alt="햄스타">
+                </th:block>
+            </th:block>
+
+            <!-- <th:block th:if="${itemVO.itemImageList[0].isMain == 'Y'}">
+                <img th:src="@{/upload/} + ${itemVO.itemImageList[0].attachedFileName}" class="card-img-top" alt="햄스타">
+            </th:block>
+
+            <th:block th:if="${itemVO.itemImageList[1].isMain == 'Y'}">
+                <img th:src="@{/upload/} + ${itemVO.itemImageList[1].attachedFileName}" class="card-img-top" alt="햄스타">
+            </th:block> -->
+        </div>
+
+        <div class="col-6">
+            <!-- 제목 가격정보 등등 -->
+            
+            <h2>[[${itemVO.itemName}]]</h2>
+
+            <h2>[[${#numbers.formatCurrency(itemVO.itemPrice)}]]</h2>
+
+            <h2><input type="hidden" th:value="${itemVO.itemPrice}" id="price"></h2>
+
+            <h2>수량 <input type="number" value="1" id="count">  </h2>
+
+            <h2> 총금액 : <label for="" id="total">[[${itemVO.itemPrice}]]</label> </h2>
+
+            <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="button" class ="btn btn-primary" value="장바구니">
+                    </div>
+
+                    <div class="col-6">
+                        <input type="button" class="btn btn-primary"value="바로구매">
+                    </div>
+                </div>
+            </div>
+            </div>   
+    </div>
+    </div> 
+    
+
+    <div>
+        <!-- 상품소개 -->
+        [[${itemVO.itemIntro}]]
+    </div>
+
+<div>
+    <!-- 상세이미지들 --> 
+    <th:block th:each="e : ${itemVO.itemImageList}">
+        <th:block th:if="${e.isMain == 'Y'}">
+            <img th:src="@{/upload/} + ${e.attachedFileName}" class="card-img-top" alt="햄스타">
+        </th:block>
+        
+    </th:block>
+</div>
+</div>
+
+    
+<script>
+    document.querySelector("#count").addEventListener('input', function(){
+        let count = document.querySelector("#count").value;
+        let total = document.querySelector("#total").value;
+        let price = document.querySelector("#price").value;
+        console.log(price)
+        console.log(count)
+        total = parseInt(price) * parseInt(count);
+        document.querySelector("#total").textContent = total;
+        console.log(total)
+});
+
+</script>
+
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <!-- <script src="/"></script> -->
+</th:block>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>abcabc초코릿</h1>
+<div th:text="${score}"></div>
+성적 : <span th:text="${score}"></span> <br>
+성적 :[[${score}]]
+<form>
+    <input type="hidden" th:value="${score}">
+</form>
+
+</body>
+</html>

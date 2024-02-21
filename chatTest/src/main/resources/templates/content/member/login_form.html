@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+<link rel="stylesheet" href="/member/css/member.css">
+
+
+</head>
+
+<body>
+    <div class="component">
+        <!-- 로그인 화면 -->
+        <form action="">
+            <div>
+                <!-- 회원 아이디와 비밀번호 받을 수 있는 input 태그들 있는곳 -->
+                <table>
+                    <tr>
+                        <td>
+                            ID
+                        </td>
+                        <td>
+                            <input type="text" name="memberId">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            PW
+                        </td>
+                        <td>
+                            <!-- type이 지금 text로 되어 있음!! -->
+                            <input type="text" name="memberPw">
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div>
+                <!-- 로그인 버튼이랑 회원가입 버튼도 만들어 놔야지 -->
+                <table>
+                    <tr>
+                        <td><input type="button" onclick="goLogin()" value="로그인"></td>
+                        <td><input type="button" onclick="goJoin()" value="회원가입"></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+    <script src="/member/js/member.js">
+        
+    </script>
+</body>
+
+</html>

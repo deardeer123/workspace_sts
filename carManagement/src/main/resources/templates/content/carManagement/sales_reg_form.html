@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/carManagement_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    <!-- html 코드 작성 -->
+
+    <div class="row">
+        <div class="col">
+            <!--  -->
+            <div class="row text-center m-5">
+                <!-- 입력하는곳 -->
+                <form action="/saleReg" method="post" id="sale-reg-form">
+                    <div class="col mt-10">
+                        <div class="row">
+                            <div class="col-2">구매자명</div>
+                            <div class="col-9">
+                                <input type="text" name="carBuyer" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-2">색상</div>
+                            <div class="col-3">
+                                <select name="modelColor" id="" class="form-select">
+                                    <option value="블랙">블랙</option>
+                                    <option value="화이트">화이트</option>
+                                    <option value="실버">실버</option>
+                                    <option value="레드">레드</option>
+                                </select>
+                            </div>
+                            <div class="col-1"></div>
+                            <div class="col-2">모델</div>
+                            <div class="col-3">
+                                <select name="modelNum" id="" class="form-select">
+                                    <th:block th:if="${!#lists.isEmpty(carList)}">
+                                        <th:block th:each="e:${carList}">
+                                            <option th:value="${e.modelNum}">[[${e.modelName}]]</option>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block th:if="${#lists.isEmpty(carList)}">
+                                        <option value="">값이없음</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-2">연락처</div>
+                            <div class="col-8"><input type="text" class="form-control" name="buyerTel"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <!-- 버튼부분 -->
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-2 d-grid">
+                            <input type="text" class="btn btn-success" value="등록" onclick="goSaleReg()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function goSaleReg() {
+            //form에 있는 내용을 submit 해줘야함!!!
+            const regForm = document.querySelector("#sale-reg-form");
+            regForm.submit();
+        }
+    </script>
+
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <!-- <script src="/"></script> -->
+</th:block>
+
+</html>

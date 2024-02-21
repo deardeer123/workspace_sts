@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <form method="post" action="/file/multi" enctype="multipart/form-data">
+        <h2>다중 첨부파일</h2>
+        <input type="file" name="imgs" multiple> <br>
+        <input type="submit" value="전송!">
+    </form>
+</body>
+</html>

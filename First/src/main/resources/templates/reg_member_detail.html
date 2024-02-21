@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<form method="post" action="goInfo">
+<p>
+    [[${member.name}]]회원가입을 환영<br>
+    아래 추가 정보 입력해주요
+</p>
+
+
+<div>
+    <span>관심 레슨</span>
+    <span>
+        <input type="checkbox" value="수영" name="lesson"> 수영
+        <input type="checkbox" value="헬스" name="lesson"> 헬스
+        <input type="checkbox" value="요가" name="lesson"> 요가
+        <input type="checkbox" value="필라테스" name="lesson"> 필라테스
+    </span>
+</div>
+
+<div>
+    <span>레슨에 참여한적이 있나요?</span>
+    <span>
+        <input type="radio" name="yesOrNo" value="yes">예
+        <input type="radio" name="yesOrNo" value="no">아니요
+    </span>
+</div>
+
+<div>
+    <span>자기소개</span>
+    <span>
+        <textarea name="intro" id="" cols="30" rows="10"></textarea>
+    </span>
+</div>
+
+<th:block th:each="each:${member.tel} ">
+    <input type="hidden" th:value="${each}" name="tel">
+</th:block>
+
+
+<input type="hidden" th:value="${member.name}" name ="name">
+<input type="hidden" th:value="${member.id}" name="id">
+<input type="hidden" th:value="${member.pw}" name="pw">
+<!-- <input type="hidden" th:value="${member.tel}" name="tel"> -->
+<!-- <input type="hidden" th:value="${member.tel2}" name="tel2">
+<input type="hidden" th:value="${member.tel3}" name="tel3"> -->
+<input type="hidden" th:value="${member.email}" name="email">
+<input type="hidden" th:value="${member.birthday}" name="birthday">
+
+<input type="submit" value="다음">
+</form>
+</body>
+</html>

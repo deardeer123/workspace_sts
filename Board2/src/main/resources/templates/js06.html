@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="button" value="버튼" id="btn">
+    <input type="text" id="text">
+    <!-- 키보드로 값을 입력할때마다 입력한 값을 console에 출력시키는 이벤트를 작성 -->
+
+    <script>
+        //이벤트처리
+        const btn = document.querySelector('#btn');
+        //alert(btn.type);
+        btn.addEventListener('click',function(){
+            alert('반가워요');
+            
+        });
+        const text = document.querySelector('#text');
+        text.addEventListener('keyup',function(){
+            console.log(text.value);
+            if(text.value.length >= 5){
+                text.value='';
+            }
+            
+        })
+        
+    </script>
+    
+</body>
+</html>

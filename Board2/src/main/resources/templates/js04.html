@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table id="my-table">
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><input type="text" value="1"></td>
+            </tr>
+            <tr id="my-tr">
+                <td>2</td>
+                <td><input type="text" value="2"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><input type="text" value="3"></td>
+            </tr>  
+        </tbody>
+    </table>
+
+    <ul>
+        <li>딸기</li>
+        <li id='my_li'>
+            <p>바나나1</p>
+            <p>바나나2</p>    
+            <p>바나나3</p>   
+        </li>  
+        <li>사과</li>
+    </ul>
+
+    <script>
+        //태그 선택하는 여러방법 부모, 자식,... 관계를 통하여 선택할 수 있음.
+        //대표적인 태그엔 id 넣고 기준으로 태그를 찾아 들어감
+
+        //id속성이 my-table인 태그의 자식 태그 선택
+        const tableTag = document.querySelector('#my-table');
+
+        //자식태그 접근
+        console.log(tableTag.children);
+
+        //테이블 태그의 자식의 자식 태그 선택
+        console.log(tableTag.children[0].children)
+        //테이블 태그의 자식의 첫번째 자식의 자식태그들
+        console.log(tableTag.children[0].children[0].children)
+        console.log(tableTag.children[0].children[0].children[1])
+
+        //부모 태그 접근.
+        const trTag = document.querySelector('#my-tr');
+        //tr태그의 부모의 부모         
+        console.log(trTag.parentElement.parentElement);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+.container{
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse : collapse;
+    text-align: center;
+}
+/* >는 자식을 의미함!!!!!!!!! */
+    /* ' ' : 자손 태그 */
+    /* ex) .container tr */
+    /* >이 있으면 자식 공백이면 자손 */
+.container > tbody > tr, .container > tbody > tr > td {
+    vertical-align: top;
+    border : 1px solid black;
+    height: 500px;
+    
+}
+#stu-list-table{
+    border : 1px;
+    border-collapse: collapse;
+    width: 90%;
+    margin : 0 auto;
+}
+
+.stu-detail-div table{
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: chartreuse;
+}
+
+.stu-detail-div table tr, .stu-detail-div table td{
+    border : 1px solid black;
+}
+
+.stu-detail-div > div:first-child{
+    margin-bottom: 30px;
+}
+#name-span:hover{
+    cursor: pointer;
+}
+ 
+/* #stu-list-table2{
+    border : 1px;
+    border-collapse: collapse;
+    width: 90%;
+    margin : 0 auto;
+}
+
+#stu-list-table3{
+    border : 1px;
+    border-collapse: collapse;
+    width: 90%;
+    margin : 0 auto;
+} */
+
+#stu-list-table tr, #stu-list-table td {
+    border: 1px solid black;
+
+}
+/* 
+#stu-list-table2 tr, #stu-list-table2 td {
+    border: 1px solid black;
+
+}
+
+#stu-list-table3 tr, #stu-list-table3 td {
+    border: 1px solid black;
+
+} */
+
+#stu-list-table> tbody> tr:hover{
+    /* hover 마우스 올리면 배경색 바꿈 */
+    background-color: #dddddd;
+}
+
+.btn-width{ 
+    width: 30px;
+}
+
+.scoreInput{
+    width: 30px;
+}

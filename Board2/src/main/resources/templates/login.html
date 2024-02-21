@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .container{
+        background-color: cadetblue;
+        width: 300px;
+        margin: 0 auto; 
+    }
+    table{
+        width: 100%;
+    }
+    .btn-div{
+        margin-top: 16px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1>로그인 화면!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
+<div class="container">
+    <form action="/member/login" method="post">
+        <table>
+            <tr>
+                <td><span>ID</span></td>
+                <td><span><input type="text" name="memberID"></span></td>
+            </tr>
+
+            <tr>
+                <td><span>PW</span></td>
+                <td><span><input type="text" name="memberPW"></span></td>
+            </tr>   
+        </table>
+            <div class="btn-div">
+                <span><input type="button" value="게시글보러가기" onclick="goBoard()"></span>
+                <span><input type="submit" value="로그인"></span>
+                <span><input type="button" value="회원가입" onclick="goJoin()"></span>
+            </div>
+    </form>
+</div>
+
+    <script>
+        function goBoard(){
+            location.href=`/board/list`;
+        }
+        function goJoin(){
+            location.href="/member/join";
+        }
+
+        const name='홍'
+        const num1=10;
+        const num2=20;
+        console.log(`${name}님 반가워요~~~ num1은${num1}이고 num2은${num2} 입니다.`)
+    </script>
+</body>
+</html>

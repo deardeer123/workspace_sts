@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/user_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴 때 같이 실행되는 CSS -->
+    <link rel="stylesheet" href="/">
+</th:block>
+html
+<th:block layout:fragment="contentFragment">
+    <!-- html 코드 작성 -->
+    로그인화면 이동될까요???
+
+    <!-- <div class="row">
+        <div class="col" style="border: 1px solid black;">로그인 폼</div>
+    </div> -->
+
+
+
+
+
+    <div>
+        <form action="/member/login" method="post" id="login-form">
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    <div class="form-floating mb-3"><!-- 아이디 -->
+                        <input type="email" class="form-control" id="id-input" placeholder="아이디를 입력해주세요"
+                            name="memberId">
+                        <label for="id-input" style="font-size: 0.7rem;">&nbsp;&nbsp;아이디</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="pw-input" placeholder="비밀번호를 입력해주세요"
+                            name="memberPw">
+                        <label for="pw-input" style="font-size: 0.7rem;">&nbsp;&nbsp;비밀번호</label>
+                    </div>
+                    <div class="d-grid mb-3"> <!-- 로그인 버튼 -->
+                        <button type="button" class="btn btn-primary" onclick="login()">로그인</button>
+                    </div>
+
+                    <div class="d-grid mb-3"> <!-- 로그인 버튼 -->
+                        <button type="button" class="btn btn-primary" onclick="login2()" value="비동기로그인">비동기로그인</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function login() {
+            const idInput = document.querySelector('#id-input');
+            const pwInput = document.querySelector('#pw-input');
+            alert(`${idInput.value}`)
+            alert(`${pwInput.value}`)
+            const loginForm = document.querySelector('#login-form');
+            loginForm.submit();
+        }
+    </script>
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴 때 같이 실행되는 JS -->
+    <script src="/js/content/member/login2.js"></script>
+</th:block>
+
+</html>

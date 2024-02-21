@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragment/user_layout}">
+
+<th:block layout:fragment="content_css">
+  <!-- html 파일이 열릴 때 같이 실행되는 CSS -->
+  <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+  <!-- html 코드 작성 -->
+  <!-- 상품 목록 화면 -->
+  <div class="row row-cols-5 g-4">
+    <th:block th:each="item , state : ${itemList}">
+      <div class="card">
+
+        <a th:href="@{/item/goDetail(itemCode=${item.itemCode})}"><img th:src="@{'/upload/' + ${item.itemImageList[0].attachedFileName}}" class="card-img-top" alt="햄스타"></a>
+        
+        <div class="card-body">
+
+          <p class="card-text">[[${item.itemName}]]</p>
+          <p class="card-text">가격 : [[${#numbers.formatCurrency(item.itemPrice)}]]</p>
+          <!-- <input type="button" th:onclick="goDetail([[${item.itemCode}]])" value="상세보기!"> -->
+        </div>
+      </div>
+    </th:block>
+  </div>
+
+  <!-- <th:block th:if="${session.memberInfo != null}">
+              <input type="hidden" id="login-id" th:value="${session.memberInfo.memberId}">
+              <script>
+                const id = document.querySelector('#login-id').value
+                alert(`${id}님 오신걸 환영합니다.`)
+              </script>
+            </th:block>
+
+            <th:block th:if="${session.memberInfo == null}">
+              <th:block th:if="${data != null}">
+                <script>
+                  alert("안됨")
+                  location.href='/member/login'
+                </script>
+              </th:block>
+            </th:block> -->
+  <!-- <script>
+    function goDetail(itemCode){
+    
+      location.href=`/item/goDetail?itemCode=${itemCode}`;
+    }
+  </script> -->
+
+</th:block>
+
+<th:block layout:fragment="content_js">
+  <!-- html 파일이 열릴 때 같이 실행되는 JS -->
+  <!-- <script src="/"></script> -->
+</th:block>
+
+</html>

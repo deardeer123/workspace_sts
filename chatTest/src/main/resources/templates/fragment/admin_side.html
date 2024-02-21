@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:fragment="sideFragment">
+    <div class="row">
+        <div class="col">
+            <ul class="list-group">
+                <th:block th:if="!${#lists.isEmpty(sideMenuList)}">
+                    <th:block th:each="e,state:${sideMenuList}">
+                        <li class="list-group-item list-group-item-primary"
+                            th:classappend="${selectSideMenuIndex == e.menuIndex? 'active' : ''}"
+                            th:onclick='goPage([[${e.pageName}]])'>[[${e.menuName}]]</li>
+                    </th:block>
+
+                </th:block>
+                <!-- <li class="list-group-item list-group-item-primary" th:classappend="${page == 6 ? 'active' : ''}"onclick="location.href='/admin/goAdminBuyList'">테스트</li> -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="/js/fragment/adimn/admin_side.js"></script>
+</th:block>
+
+</html>

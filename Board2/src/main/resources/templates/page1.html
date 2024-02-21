@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <h1>page1 입니다.</h1>
+    <!-- <div th:value="${session.name}"></div> -->
+    [[${session.name}]] <br>
+    [[${session.age}]]  <br>
+    [[${session.member.memberName}]] <br>
+    
+    <!-- <div th:value="${session.age}"></div> -->
+    <a href="page2"> 페이지2로 이동합니다. </a>
+    <script>
+        function time(){
+            let time = new Date();
+        }
+        setInterval(() => console.log(++count), 2000);
+    </script>
+
+</body>
+</html>

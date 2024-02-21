@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <!-- 로그인 정보가 조회가 실패 됐으면 -->
+    <th:block th:if="${session.loginInfo == null}">
+        <h1>실패했음 ㅅㄱ</h1>
+        <script>
+            alert('틀림');
+            location.href=`/member/loginForm`;
+        </script>
+    </th:block>
+
+    <th:block th:if="${session.loginInfo != null}">
+            <input type="hidden" id="name" th:value="${session.loginInfo.memberID}">
+    
+        <script>
+            let name1 = document.getElementById("name").value
+            alert(name1+"님 오신걸 환영합니다.");
+            location.href=`/board/list`;
+        </script>
+    </th:block>
+
+    
+</body>
+</html>

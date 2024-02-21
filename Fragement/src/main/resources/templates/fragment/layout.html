@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    @font-face {
+    font-family: 'DOSSaemmul';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSSaemmul.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-family: 'DOSSaemmul';
+}
+</style>
+</head>
+<body>
+    <h3>레이아웃 html 입니다.</h3>
+
+    <div>
+        헤더영역
+        <!-- fragment 폴더 안의 header.html로 영역을 대체하겠다. -->
+        <!-- fragment 폴더 안의 header.html를 headerFragment라고 부르겠다. -->
+        <th:block th:replace="~{fragment/header::headerFragment}"> </th:block>
+    </div>
+    <div>
+        사이드영역
+        <th:block th:replace="~{fragment/side.html::sideFragment}"></th:block>
+    </div>
+    <div>
+        컨텍츠 영역
+        <!-- <th:block th:replace="~{content/content_1.html::contentFragement}"></th:block> -->
+        <th:block layout:fragment="contentFragement"></th:block>
+        <!-- 매번 바뀌므로 따로 파일경로이나 파일명을 적지 않음 -->
+    </div>
+
+</body>
+</html>

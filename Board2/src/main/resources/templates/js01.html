@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="id1" value="야호!!!!!!!!!!!!!!!!!!!!!">
+    <input type="button" value="버튼" onclick="test()">
+    <input type="button" id="num1" value="">
+    <input type="password" class="num2">
+    <input type="checkbox" value="1" class="num3">
+    <input type="checkbox" value="2" class="num3">
+    <input type="checkbox" value="3" class="num3">
+
+    <script>
+        const aa = '불변한 자료 저장할 때';
+        var a1 = '예전꺼';
+        let a2 = '요즘꺼';
+        let a3 = document.getElementById("id1").value
+
+        
+        //dom 객체(태그) 컨트롤!!!!!!!!!!!!!!!!!!!!!
+        
+        //태그 선택하기(접근하기)
+        const tag1 = document.querySelector("#num1");
+        //1. 아이디 속성이 num1인 태그 선택
+        console.log(tag1);
+        //2. class 속성이 num2인 태그 선택
+        const tag2 = document.querySelector('.num2');
+        console.log(tag2);
+
+        //3. class 속성이 num3인 태그 선택
+        //같은 class 속성을 가진 태그가 여러개라면, 제일 첫번째꺼만 선택함.
+        const tag3 = document.querySelector('.num3');
+        console.log(tag3);
+
+        //4. class 속성이 num3인 태그 모두를 선택.
+        const tag4 = document.querySelectorAll('.num3');
+        //첫번째 요소 출력
+        console.log(tag4[0]);
+
+        let i = 0;
+        for(i=0; i<tag4.length; i++){
+            console.log(tag4[i])
+        }
+
+        for(const e of tag4 ){
+            console.log(e);
+        }
+
+        function test(){
+            a3 = document.getElementById("id1").value
+            alert(a3);
+        }
+
+        
+        
+    </script>
+</body>
+</html>

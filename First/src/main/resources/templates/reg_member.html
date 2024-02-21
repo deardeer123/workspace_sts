@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<form action="goDetail" method="post">
+    <table>
+    <tr>
+        <td><span>아이디</span></td>
+        <td><span><input type="text" name="id"></span></td>
+    </tr>
+
+    <tr>
+        <td><span>비밀번호</span></td>
+        <td><span><input type="text" name="pw"></span></td>
+    </tr>
+
+    <tr>
+        <td><span>이름</span></td>
+        <td><span><input type="text" name="name"></span></td>
+    </tr>
+
+    <tr>
+        <td><span>연락처</span></td>
+        <td>
+        <span>
+            <select name="tel">
+                <option value="010">010</option>
+                <option value="011">011</option>
+                <option value="012">012</option>
+            </select>
+        </span>
+        <span>
+            <input type="text" name="tel">
+        </span>
+        <span>
+            <input type="text" name="tel">
+        </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td><span>이메일</span></td>
+        <td><span><input type="email" name="email"></span></td>
+    </td>
+
+    <tr>
+        <td><span>생일</span></td>
+        <td><span><input type="date" name="birthday"></span></td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td><input type="submit" name="회원가입"></td>
+    </td>
+    </table>
+</form>
+
+</body>
+</html>

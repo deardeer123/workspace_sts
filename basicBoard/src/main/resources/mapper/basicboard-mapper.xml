@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="basicBoardMapper">
+	<resultMap id="board" type="com.green.basicBoard.vo.BasicBoardVO">
+        <result column="BOARD_NUM" property="boardNum" />
+        <result column="BOARD_TITLE" property="boardTitle" />
+        <result column="BOARD_CONTENT" property="boardContent" />
+        <result column="WRITER" property="writer" />
+        <result column="CREATE_DATE" property="createDate" />
+        <result column="READ_CNT" property="readCnt" />
+    </resultMap>
+    <select id="selectBoardList" resultMap="board">
+        SELECT
+            BOARD_NUM
+            , BOARD_TITLE
+            , WRITER
+            , CREATE_DATE
+            , READ_CNT
+        FROM
+            BASIC_BOARD
+    </select>
+
+    <insert id="insertBoard">
+        INSERT INTO BASIC_BOARD
+        VALUES(
+            #{boardNum} ,
+            #{boardTitle} ,
+            #{boardContent} ,
+            #{writer} ,
+            #{createDate} ,
+            0
+        )
+    </insert>
+
+    <select id="selectBoard" resultMap="board">
+        SELECT BOARD_NUM ,
+            BOARD_TITLE ,
+            BOARD_CONTENT ,
+            WRITER ,
+            CREATE_DATE ,
+            READ_CNT
+        FROM
+            BASIC_BOARD
+        WHERE
+            BOARD_NUM = #{boardNum}
+    </select>
+
+    <update id="updateCnt">
+        UPDATE BASIC_BOARD
+        SET READ_CNT = READ_CNT + 1
+        WHERE BOARD_NUM = #{boradNum}
+    </update>
+
+    <update id="modifyboard">
+        UPDATE BASIC_BOARD
+        SET BOARD_TITLE = #{boardTitle} ,
+        BOARD_CONTENT = #{boardContent}
+        WHERE BOARD_NUM = #{boardNum}
+    </update>
+
+    <delete id="deleteboard">
+        DELETE FROM BASIC_BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

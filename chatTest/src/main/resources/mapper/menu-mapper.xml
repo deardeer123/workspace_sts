@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="menuMapper">
+    <resultMap id="menu" type="com.celestegreen.chatTest.menu.vo.MenuVO">
+        <id column="MENU_NUM" property="menuNum"/>
+        <result column="MENU_TYPE" property="menuType"/>
+        <result column="MENU_NAME" property="menuName"/>
+        <result column="PAGE_NAME" property="pageName"/>
+        <result column="MENU_INDEX" property="menuIndex"/>
+    </resultMap>
+<!--  메뉴리스트 불러오기 메뉴 index 순으로 불러 와야할듯-->
+    <select id="selectUserSideMenuList" resultMap="menu">
+        select
+            MENU_NUM ,
+            MENU_TYPE ,
+            MENU_NAME ,
+            PAGE_NAME ,
+            MENU_INDEX
+        FROM
+            MENU
+        WHERE
+            MENU_TYPE=#{menuType}
+        ORDER BY
+            MENU_INDEX
+    </select>
+
+
+<!--  들어가고자 하는 페이지 메뉴의 인덱스 번호 찾기-->
+    <select id="selectMenuIndex" resultType="int">
+        select
+            menu_index
+        from
+            menu
+        where
+            page_name = #{pageName}
+    </select>
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

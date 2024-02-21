@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .container{
+        width: 650px;
+        /* 폭 */
+        margin: 0 auto; 
+        /* 상하 여백은 0 옆 여백은 똑같이 준다는뜻 */
+    }
+    table{
+        border: 2px solid black;
+        width: 100%;
+        /* % 기준은 부모태그 width임 100%이므로 600px나옴  */
+        border-collapse: collapse;
+        /* 쉘 테두리 안겹치게 */
+        background-color: whitesmoke
+    }
+    tr,td{
+        border: 1px solid black;
+    }
+    .btn-div{
+        text-align: center;
+        margin-top: 16px;
+    }
+</style>
+</head>
+<body>
+    테스트
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <td>글번호</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                    <td>조회수</td>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 조회된 데이터가 없으면 -->
+                <div th:if="${#lists.isEmpty(boardList)} == true">
+                    <tr>
+                        <td colspan="5" style="text-align: center; font-size: 50px; color: red;">
+                            게시물이 없다!!!!!!!@@@@@@@!!!!!!!!!!!!!!!!!
+                        </td>
+                    </tr>
+                </div>
+                
+                <!-- 조회된 데이터 있으면 -->
+                <th:block th:if="${#lists.isEmpty(boardList) != true}" th:each="e:${boardList}">
+                    <tr>
+                        <td>[[${e.boardNum}]]</td>
+                        <td th:onclick="goInfo([[${e.boardNum}]])">
+                            [[${e.boardTitle}]]
+                        </td>
+                        <td>[[${e.writer}]]</td>
+                        <td>[[${e.createDate}]]</td>
+                        <td>[[${e.readCnt}]]</td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn-div">
+        <span><input type="button" value="글쓰기" onclick="goWrite()" ></span>
+        <span>
+            <input type="text" id="title" value="제목">
+            <input type="button" onclick="goSearch()" value="검색">
+        </span>
+        
+    </div>
+    <script>
+        function goWrite(){
+            location.href="writeBoard"
+        }
+        function goInfo(boardNum){
+            location.href=`infoBoard?boardNum=${boardNum}`;
+        }
+        function goSearch(){
+            let search = document.getElementById("title");
+            location.href=`search?title=${search}`
+        }
+
+    </script>
+</body>
+</html>

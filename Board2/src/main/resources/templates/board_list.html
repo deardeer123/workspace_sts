@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+    <style>
+        .container{
+            width: 650px;
+            margin: 0 auto;
+        }
+        table{
+            border: 1px solid black; 
+            width : 100%;
+            border-collapse: collapse;
+        }
+        tr,td{
+            border: 1px solid black;
+        }
+        .btn-div{
+        margin-top: 16px;
+        text-align: center;
+        }
+        .top-btn-div{
+            margin-bottom: 16px;
+        }
+        .bottom-btn-div{
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    아무것도 없지요~~~~~~~~~~~~있네요
+    <div class="container">
+        <div class="top-btn-div">
+            <th:block th:if="${session.loginInfo != null}">
+                    <span>
+                        [[${session.loginInfo.memberID}]] 님 반가워요!!!!!!!!!!!!!!!!!
+                    </span>
+                    <span>
+                        <input type="button" value="로그아웃(로그인화면으로감)" onclick="logout()">
+                    </span>
+                    <span>
+                        <input type="button" value="로그아웃" onclick="location.href='/member/logout'">
+                    </span>
+            </th:block>
+            <input type="button" th:if="${session.loginInfo == null}" value="로그인" onclick="location.href='/member/loginForm'">
+        </div>
+       
+        <table>
+            <thead>
+                <tr>
+                    <td>글번호</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                    <td>조회수</td>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:if="${#lists.isEmpty(boardList)}">
+                    <tr>
+                        <td colspan="4">
+                            <h1>작성된 글이 없습니다!!!!!!!!!!!!</h1>
+                        </td>
+                    </tr>
+                </th:block>
+
+                <th:block th:if="${!#lists.isEmpty(boardList)}" th:each="e:${boardList}">
+                    <tr>
+                        <td>[[${e.boardNum}]]</td>
+                        <td><a th:onclick="goInfo([[${e.boardNum}]])">[[${e.title}]]</a></td>
+                        <td>[[${e.writer}]]</td>
+                        <td>[[${e.createDate}]]</td>
+                        <td>[[${e.readCnt}]]</td>
+                    </tr>
+
+                </th:block>
+            </tbody>
+        </table>
+        <div class="btn-div">
+            <th:block th:if="${session.loginInfo != null}">
+                <span><input type="button" value="글쓰기" onclick="goWrite()"></span>
+            </th:block>
+        </div>
+        <div class="bottom-btn-div">
+            <form action="/board/list" method="post">
+                <select name="searchType">
+                    <option value="TITLE" th:selected="${searchVO.searchType == 'TITLE'}">제목</option>
+                    <option value="WRITER" th:selected="${searchVO.searchType == 'WRITER' || searchVO.searchType == null }">작성자</option>
+                </select>
+                <input type="text" name="searchValue" th:value="${searchVO.searchValue}">
+                <input type="submit" value="검색">
+            </form>
+        </div>
+        <div>
+            <!-- 페이징 코드 -->
+            <th:block th:if="${searchVO.prev}">
+                <a th:href="@{/board/list(nowPage=${searchVO.beginPage-1},searchValue=${searchVO.searchValue},searchType=${searchVO.searchType})}">이전</a>
+            </th:block>
+            
+            <th:block th:each="i :${#numbers.sequence(searchVO.beginPage,searchVO.endPage)}">
+               <a th:href="@{/board/list(nowPage=${i},searchValue=${searchVO.searchValue},searchType=${searchVO.searchType})}"> [[${i}]] </a>
+            </th:block>
+            
+            <th:block th:if="${searchVO.next}">
+                <a th:href="@{/board/list(nowPage=${searchVO.endPage+1},searchValue=${searchVO.searchValue},searchType=${searchVO.searchType})}">다음</a>
+            </th:block>
+            <!-- ${searchVO.beginPage}
+            ${searchVO.endPage} -->
+        </div>
+    </div>
+    <script>
+        function goWrite(){
+            location.href="/board/write"
+        }
+        function goInfo(boardNum){
+            location.href=`/board/info?boardNum=${boardNum}`
+        }
+        // function goSearch(){
+        //     let type = document.getElementById("searchType").value
+        //     let value = document.getElementById("searchValue").value
+            
+        //     location.href=`/board/list?searchType=${type}&searchValue=${value}`  
+        // }
+        function logout(){
+            location.href='/member/loginForm'
+        }
+    </script>
+</body>
+</html>

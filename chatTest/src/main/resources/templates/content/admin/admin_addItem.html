@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/admin_layout}">
+
+<th:block layout:fragment="content_css">
+    <!-- html 파일이 열릴때 같이 실행되는 css -->
+    <!-- <link rel="stylesheet" href="/"> -->
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+    <!-- html 코드 작성 -->
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col-6">
+                    <!-- 사진 올린거 확인 -->
+                    <div class="row">
+                        <div class="col">
+                            <!-- 올라온 사진 -->
+                            <div class="text-center">
+                                <img src="/upload/food_ham_egg.jpg" class="rounded" alt="..." id="itemImg2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <!-- 사진 올리기 -->
+                            <div class="input-group mb-3">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    id="inputGroupFileAddon03">사진등록</button>
+                                <input type="file" class="form-control" id="itemImg" onchange="previewImg(this)"
+                                    aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <!-- 상품 정보 기입 -->
+
+                    <div class="row mt-5">
+                        <div class="col">
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <!-- 상품명 -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="상품명">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <!-- 가격 -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="가격">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <!-- 카테고리 -->
+                                    <div class="input-group mb-3">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <th:block th:each="e:${cateList}">
+                                                <option th:value="${e.cateCode}">[[${e.cateName}]]</option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <!-- 등록버튼 -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="button" class="btn btn-primary">등록하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="content_js">
+    <!-- html 파일이 열릴때 같이 실행되는 js -->
+    <script src="/js/cotent/admin/admin_addItem.js"></script>
+</th:block>
+
+</html>

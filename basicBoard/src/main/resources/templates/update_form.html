@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+    .container{
+        width: 650px;
+        /* 폭 */
+        margin: 0 auto; 
+        /* 상하 여백은 0 옆 여백은 똑같이 준다는뜻 */
+    }
+    table{
+        border: 2px solid black;
+        width: 100%;
+        /* % 기준은 부모태그 width임 100%이므로 600px나옴  */
+        border-collapse: collapse;
+        /* 쉘 테두리 안겹치게 */
+        background-color: whitesmoke
+    }
+    tr,td{
+        border: 1px solid black;
+    }
+    .btn-div{
+        text-align: center;
+        margin-top: 16px;
+    }
+</style>
+</head>
+<body>
+    <div class = "container">
+        <form action ="/modifyBoard2" method="get">
+        <table>
+            <tr>
+                <td>글번호</td>
+                <td><input type="text" name="boardNum" th:value="${basicBoardVO.boardNum}" readonly></td>
+                <td>작성자</td>
+                <td><input type="text" name="writer" th:value="${basicBoardVO.writer}" readonly></td>
+                <td>작성일</td>
+                <td><input type="text" name="createDate" th:value="${basicBoardVO.createDate}" readonly></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td colspan="5"><input type="text" name ="boardTitle"th:value="${basicBoardVO.boardTitle}" ></td>
+            </tr>
+        
+            <tr>
+                <td>내용</td>
+                <td colspan="5">
+                    <textarea cols="30" rows="10" name="boardContent">[[${basicBoardVO.boardContent}]]</textarea>
+                </td>
+            </tr>
+        
+        </table>
+        <div>
+            <input type="submit" value="수정하기">
+            <input type="hidden" name="boardNum" th:value="${basicBoardVO.boardNum}">
+
+        </div>
+        </form>
+    </div>
+    
+</body>
+</html>

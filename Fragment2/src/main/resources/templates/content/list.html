@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{fragment/layout}">
+    <th:block layout:fragment="content_css">
+        <link rel="stylesheet" href="/css/menu.css">
+    </th:block>
+
+
+    <th:block layout:fragment="contentFragment">
+        <h1>리스트가 들어갈곳 입니다</h1>
+        이름은&nbsp;[[${name}]]&nbsp;나이는&nbsp;[[${age}]]<br>
+    이게 되나??????????
+        <a href="/goDetail">상세보기</a>
+    </th:block>
+</html>

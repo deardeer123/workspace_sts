@@ -1,0 +1,12 @@
+ <th:block th:if="{!#lists.isEmpty(replyList)}" th:each="e:${replyList}">
+                <table>
+                    <tr>
+                        <td>[[${e.writer}]]</td>
+                        <td>[[${e.createDate}]]</td>
+                        <td><input type="button" value="삭제" th:onclick="goDeleteReply()"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">[[${e.content}]]</td>
+                    </tr>
+                </table>
+            </th:block>
