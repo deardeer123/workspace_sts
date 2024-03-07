@@ -3,6 +3,8 @@ package com.green.basicBoard.controller;
 import com.green.basicBoard.service.BasicBoardService;
 import com.green.basicBoard.vo.BasicBoardVO;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +16,14 @@ import java.util.List;
 
 @Controller
 public class BasicBoardController {
-    @Resource(name = "aaa")
+    @Resource(name = "boardService")
     private BasicBoardService basicBoardService;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+
+
     @GetMapping("/")
     public String start(Model model){
         //목록 페이지
@@ -26,6 +34,12 @@ public class BasicBoardController {
             basicBoardVO.add(basicBoardVO1);
         }*/
         model.addAttribute("boardList", basicBoardVO);
+
+        //encode = 매개변수로 전달된 문자열을 암호화
+        String s1 = encoder.encode("java");
+        System.out.println(encoder.encode("java"));
+
+        System.out.println(encoder.matches("java", s1));
         return "board_list";
     }
     @PostMapping("/writeBoard")

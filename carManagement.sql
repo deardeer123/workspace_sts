@@ -33,7 +33,7 @@ values(
  SELECT
             MODEL_NUM ,
             MODEL_NAME,
-            MODEL_MANUFACTURER
+            MODEL_MANUFACTURERteam2team2
         FROM
             car_info;
             
@@ -50,10 +50,4 @@ SELECT
 FROM
 	sales_info INNER JOIN car_info
 	ON sales_info.MODEL_NUM = car_info.MODEL_NUM;
-
-
-
-
-
-
-
+bookcategorybookboardbasic_board

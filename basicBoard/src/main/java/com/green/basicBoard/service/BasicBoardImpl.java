@@ -2,12 +2,13 @@ package com.green.basicBoard.service;
 
 import com.green.basicBoard.service.BasicBoardService;
 import com.green.basicBoard.vo.BasicBoardVO;
+import com.green.basicBoard.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service("aaa")
+@Service("boardService")
 public class BasicBoardImpl implements BasicBoardService {
     @Autowired
     SqlSessionTemplate sqlSession;
@@ -39,6 +40,16 @@ public class BasicBoardImpl implements BasicBoardService {
     @Override
     public void deleteboard(int boardNum) {
         sqlSession.delete("deleteboard",boardNum);
+    }
+
+    @Override
+    public void join(MemberVO memberVO) {
+        sqlSession.insert("memberMapper.join",memberVO);
+    }
+
+    @Override
+    public MemberVO login(String memberId) {
+        return sqlSession.selectOne("memberMapper.login",memberId);
     }
 
 

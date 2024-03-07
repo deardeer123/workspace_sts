@@ -30,6 +30,20 @@
 <body>
     테스트
     <div class="container">
+
+        <div>
+            <th:block th:if="${session.loginInfo == null}">
+                <a href="/loginForm">login</a>
+                <a href="/joinForm">join</a>
+            </th:block>
+            <th:block th:if="${session.loginInfo != null}">
+                [[${session.loginInfo.memberId}]]님 반갑슴
+                <a href="/logout">logout</a>
+            </th:block>
+            <a href="/logout">logout</a>
+            <a href="/manager">매니저전용</a>
+            <a href="/admin">관리자전용</a>
+        </div>
         <table>
             <thead>
                 <tr>
