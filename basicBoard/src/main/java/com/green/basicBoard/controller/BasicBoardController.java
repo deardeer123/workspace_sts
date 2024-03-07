@@ -4,6 +4,9 @@ import com.green.basicBoard.service.BasicBoardService;
 import com.green.basicBoard.vo.BasicBoardVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.ldap.BasicControl;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -95,4 +99,40 @@ public class BasicBoardController {
         return "redirect:/";
     }
 
+    @GetMapping("/admin")
+    public String admin(){
+        return "/admin";
+    }
+    @GetMapping("/manager")
+    public String manager(){
+        return "/manager";
+    }
+
+    @GetMapping("/deny")
+    public String deny(){
+        return  "/deny";
+    }
+
+    @GetMapping("/sample")
+    public String sample(){
+        return "/security_sample";
+    }
+
+    //로그인 정보 받아오기
+    @GetMapping("/sec")
+    public String securitySample(Authentication authentication){
+
+        //1. 로그인 정보를 받아오기 위해서 매개변수에 Authentication 자료형 추가
+//        2. 로그인 정보 받아오기
+        User user =(User)authentication.getPrincipal();
+
+        //로그인한 회원의 아이디,비번, 권한ㅏ[
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        List<GrantedAuthority> list = new ArrayList<>(user.getAuthorities());
+        for(GrantedAuthority e : list){
+            System.out.println(e);
+        }
+        return "redirect:/";
+    }
 }

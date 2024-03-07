@@ -42,7 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 //기본적으로 시큐리티는 비밀번호가 암호화되어 있다고 판단.
                 //{noop}을 비빌번호 앞에 문자열로 추가하면 암호화 되어 있지 않다는 것을 알려줌
                 .password(member.getMemberPw())
-                .authorities(member.getMemberRoll())
+                .roles(member.getMemberRoll())
                 .build();
 
         return userInfo;

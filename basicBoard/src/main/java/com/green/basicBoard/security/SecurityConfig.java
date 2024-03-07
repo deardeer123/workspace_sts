@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -46,7 +47,8 @@ public class SecurityConfig {
                                new AntPathRequestMatcher("/loginForm"),
                                new AntPathRequestMatcher("/joinForm"),
                                new AntPathRequestMatcher("/join"),
-                               new AntPathRequestMatcher("/login")
+                               new AntPathRequestMatcher("/login"),
+                               new AntPathRequestMatcher("/sample")
 //                               new AntPathRequestMatcher("/member/**")
 
                        ).permitAll()
@@ -56,6 +58,9 @@ public class SecurityConfig {
                        .requestMatchers(
                                new AntPathRequestMatcher("/manager")
                        ).hasRole("MANAGER")
+                           .requestMatchers(
+                                   new AntPathRequestMatcher("/boardWriteForm")
+                           ).hasAnyRole("USER","MANAGER")
                        .anyRequest().authenticated();
                    }
                    //로그인 form을 할용해서 할 것이고
@@ -85,7 +90,15 @@ public class SecurityConfig {
                                     //세션값 날려버림
                                     .invalidateHttpSession(true);
                         }
+
+                )
+                .exceptionHandling(
+                        ex->{
+                            ex.accessDeniedPage("/deny");
+                        }
                 );
+
+
         return security.build();
     }
 }
