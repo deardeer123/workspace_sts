@@ -107,7 +107,7 @@
                         <col width="30%">
                         <col width="50%">
                     </colgroup>
-                    <thead class="table-success"> 
+                    <thead class="table-success">
                         <tr>
                             <td>
                                 <div class="row">
@@ -168,7 +168,33 @@
     </div>
 
     <script>
-        function startReg(){
+        function startReg() {
+            //안에 값이 비어있는지 체크
+            //모델명
+            const car_model_teg = document.querySelector("#model-name")
+            //차량가격
+            const car_price_tag = document.querySelector("#model-price");
+            if ((car_model_teg.value == '') & (car_price_tag.value == '')) {
+                alert("모델명과 차량가격이 비어있습니다.")
+                return;
+            }
+
+            if (car_model_teg.value == '') {
+                alert("모델명이 비어있습니다.")
+                return;
+            }
+            if (car_price_tag.value == '') {
+                alert("차량가격이 비어있습니다.")
+                return;
+            }
+            //숫자만 입력받도록 하는 정규식
+            let check = /^[0-9]+$/;
+            if (!check.test(car_price_tag.value)){
+                alert("숫자만 입력 가능합니다.");
+                return;
+            }
+            
+
             //form에 있는 내용을 submmit해야함
             const regBtn = document.querySelector("#reg-Form")
             regBtn.submit();

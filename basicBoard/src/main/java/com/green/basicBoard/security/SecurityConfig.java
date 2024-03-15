@@ -3,11 +3,13 @@ package com.green.basicBoard.security;
 //스프링 시큐리티 인증, 인가에 대한 프로세스를 정의
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -24,6 +26,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    private LoginFailHandler loginFailHandler;
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
 
     @Bean
     public BCryptPasswordEncoder getEncoder(){
@@ -77,8 +84,12 @@ public class SecurityConfig {
                                     .loginProcessingUrl("/login")
                                     // 로그인 성공 시 이동할 url true 넣으면 무조건 / 으로감
                                     //false 인경우는 이전페이지로 가던가 설정한 url으로 감
-                                    .defaultSuccessUrl("/", false)
-                                    .failureUrl("/loginForm");
+                                    //.defaultSuccessUrl("/", false) //밑에 있는거 (handler) 넣으면 주석처리
+                                    //.failureUrl("/loginForm")
+                                    //successHandler 로그인 성공 시 실행시킬 클래스의 객체
+                                    .successHandler(loginSuccessHandler)
+                                    //failureHandler 로그인 실패 시 실행시킬 클래스의 객체
+                                    .failureHandler(loginFailHandler);
                         }
                 ).logout(
                         logout->{
@@ -100,5 +111,17 @@ public class SecurityConfig {
 
 
         return security.build();
+    }
+    //정적인 자원은 security가 인증 및 인가 관리에서 제외하도록 설정
+    //정적인 파일 : .js , .css, 이미지
+    //resources 폴더 밑에 있는 모든 파일들
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        return web -> web.ignoring().requestMatchers(
+                new AntPathRequestMatcher("/upload/**"),
+                new AntPathRequestMatcher("/css/**"),
+                new AntPathRequestMatcher("/js/**"),
+                new AntPathRequestMatcher("/images/**")
+        );
     }
 }

@@ -14,40 +14,23 @@ CREATE TABLE SALES_INFO(
 	MODEL_NUM INT NOT NULL REFERENCES car_info(MODEL_NUM)
 	);
 	
+-- DROP TABLE car_info;
 -- DROP TABLE SALES_INFO;
 
 SELECT * FROM car_info;
 SELECT * FROM sales_info;
 -- DELETE FROM sales_info;
 
-INSERT INTO car_info(
-	MODEL_NAME ,
-	MODEL_PRICE ,
-	MODEL_MANUFACTURER)
-values(
-	'아반데' ,
-	10000,
-	'현대'
-	);
-
- SELECT
-            MODEL_NUM ,
-            MODEL_NAME,
-            MODEL_MANUFACTURERteam2team2
-        FROM
-            car_info;
-            
 -- DELETE FROM car_info;
 ALTER TABLE car_info AUTO_INCREMENT = 1;
 
 SELECT 
 	CAR_BUYER,
 	BUYER_TEL,
-	SALES_DATE,
+   deptdate_format(SALES_DATE, '%Y-%m-%d' ) as SALES_DATE ,
 	MODEL_COLOR,
 	MODEL_NAME,
 	MODEL_PRICE
 FROM
 	sales_info INNER JOIN car_info
 	ON sales_info.MODEL_NUM = car_info.MODEL_NUM;
-bookcategorybookboardbasic_board

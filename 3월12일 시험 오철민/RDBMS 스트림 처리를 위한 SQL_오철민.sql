@@ -1,0 +1,131 @@
+-- 1
+CREATE TABLE MY_MEMBER(
+   MEMBER_NUM INT PRIMARY KEY ,
+   MEMBER_ID VARCHAR(50) NOT NULL ,
+   MEMBER_PW VARCHAR(100) NOT NULL ,
+   MEMBER_NAME VARCHAR(10) NOT NULL ,
+   MEMBER_AGE INT ,
+   MEMBER_MAIL VARCHAR(50));
+   
+SELECT * FROM my_member;
+
+-- 2
+INSERT INTO MY_MEMBER
+VALUES(
+   1 ,
+   'abc123' ,
+   'pw123' ,
+   '오철민' ,
+   '30',
+   'abc123@naver.com'
+   );
+   
+DELETE FROM MY_MEMBER;
+
+-- 3 
+UPDATE MY_MEMBER
+SET 
+   MEMBER_ID = 'KIMJAVA' ,
+   MEMBER_NAME = '김자바'
+WHERE
+   MEMBER_NUM = 1;
+   
+-- 4
+
+SELECT 
+   EMPNO ,
+   ENAME ,
+   SAL ,
+   COMM
+FROM
+   emp
+WHERE
+   (SAL >=500 AND SAL <=3000) AND (comm IS NOT NULL);
+   
+-- 5
+
+SELECT 
+   EMPNO ,
+   ENAME ,
+   HIREDATE
+FROM
+   EMP
+WHERE
+   (ENAME LIKE CONCAT('%', '기')) OR (ENAME LIKE CONCAT('%', '김', '%'))
+ORDER BY
+   EMPNO DESC;
+   
+-- 6
+
+SELECT
+   EMPNO ,
+   ENAME ,
+   DEPTNO ,
+   CASE
+      WHEN DEPTNO = 10 THEN '인사부'
+      WHEN DEPTNO = 20 THEN '영업부'
+      WHEN DEPTNO = 30 THEN '개발부'
+      ELSE '생산부'
+   END AS 'DNAME'
+FROM
+   emp;
+   
+-- 7
+
+SELECT
+   EMPNO ,
+   ENAME ,
+   HIREDATE ,
+   IFNULL(COMM , 0) AS COMM
+FROM
+   EMP
+WHERE
+   DATE_FORMAT(HIREDATE, '%m') = 1
+ORDER BY
+   HIREDATE ASC;
+   
+-- 8 
+
+SELECT
+   deptno ,
+   SUM(SAL) AS '급여의 합',
+   AVG(SAL) AS '급여의 평균',
+   AVG(SAL) AS '커미션 평균'
+FROM
+   EMP
+GROUP BY DEPTNO
+ORDER BY SUM(SAL) DESC;
+
+
+-- 9 
+
+SELECT
+   EMPNO ,
+   ENAME ,
+   SAL ,
+   DEPTNO ,
+   (SELECT DNAME
+   FROM DEPT
+   WHERE dept.DEPTNO = emp.DEPTNO) AS DNAME
+FROM emp
+WHERE
+   DEPTNO = (SELECT DEPTNO
+            FROM DEPT
+            WHERE DNAME = '인사부');
+
+-- 10
+   
+SELECT 
+   EMPNO ,
+   ENAME ,
+   HIREDATE ,
+   SAL ,
+   EMP.DEPTNO ,
+   DNAME
+FROM
+   EMP INNER JOIN DEPT
+   ON emp.DEPTNO = dept.DEPTNO
+WHERE
+   (DNAME <> '인사부') AND (SAL >= 500)
+ORDER BY
+   EMPNO DESC,  ENAME ASC;

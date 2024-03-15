@@ -5,10 +5,18 @@
 <title></title>
 </head>
 <body>
+    <input type="hidden" id="errorMsg"th:value="${errorMsg}"> 
     <form action="/login" method="post">
         아이디 : <input type="text" name="memberId"> <br>
         비번 : <input type="password" name="memberPw"> <br>
         <input type="submit" value="로그인">
     </form>
+    <script>
+        let errorMsg = document.querySelector("#errorMsg")
+        console.log(errorMsg.value)
+        if(errorMsg.value !='success'){
+            alert(errorMsg.value)
+        }
+    </script>
 </body>
 </html>

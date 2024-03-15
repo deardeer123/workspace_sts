@@ -20,14 +20,14 @@
                         <div class="row">
                             <div class="col-2">구매자명</div>
                             <div class="col-9">
-                                <input type="text" name="carBuyer" class="form-control">
+                                <input type="text" name="carBuyer" id="car-buyer"class="form-control">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-2">색상</div>
                             <div class="col-3">
-                                <select name="modelColor" id="" class="form-select">
+                                <select name="modelColor" id="model-color" class="form-select">
                                     <option value="블랙">블랙</option>
                                     <option value="화이트">화이트</option>
                                     <option value="실버">실버</option>
@@ -37,14 +37,14 @@
                             <div class="col-1"></div>
                             <div class="col-2">모델</div>
                             <div class="col-3">
-                                <select name="modelNum" id="" class="form-select">
+                                <select name="modelNum" id="model-num" class="form-select">
                                     <th:block th:if="${!#lists.isEmpty(carList)}">
                                         <th:block th:each="e:${carList}">
                                             <option th:value="${e.modelNum}">[[${e.modelName}]]</option>
                                         </th:block>
                                     </th:block>
                                     <th:block th:if="${#lists.isEmpty(carList)}">
-                                        <option value="">값이없음</option>
+                                        <option value="null">값이없음</option>
                                     </th:block>
                                 </select>
                             </div>
@@ -52,7 +52,7 @@
 
                         <div class="row mt-4">
                             <div class="col-2">연락처</div>
-                            <div class="col-8"><input type="text" class="form-control" name="buyerTel"></div>
+                            <div class="col-8"><input type="text" class="form-control" name="buyerTel" id="buyer-tel"></div>
                         </div>
                     </div>
                 </form>
@@ -74,9 +74,37 @@
 
     <script>
         function goSaleReg() {
-            //form에 있는 내용을 submit 해줘야함!!!
+            //안에 빈값이 들어있는지 확인해줘야함!!
+            //구매자명
+            const car_buyer_tag = document.querySelector("#car-buyer");
+            //모델명
+            const car_model_tag = document.querySelector("#model-num");
+            //색상명
+            const car_color_tag = document.querySelector("#model-color");
+
+            if(car_buyer_tag.value ==""){
+                alert("구매자명이 비었습니다.")
+                return;
+            }
+
+            if((car_model_tag.value == "null") | (car_model_tag.value == null)){
+                alert("모델명이 비었습니다.")
+                return;
+            }
+
+            if(car_color_tag.value == ""){
+                alert("색상이 선택되지 않았습니다.")
+                return;
+            }
+
+
+
+            //form에 있는 내용을 submit 해줘야함!!
             const regForm = document.querySelector("#sale-reg-form");
-            regForm.submit();
+            if(!(car_model_tag.value == "null") & !(car_model_tag.value == null)){
+                regForm.submit();
+            }
+            //regForm.submit();
         }
     </script>
 

@@ -2,6 +2,8 @@ package com.green.basicBoard.service;
 
 import com.green.basicBoard.vo.MemberVO;
 import jakarta.annotation.Resource;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,10 +32,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     //로그인 하려는 사람의 로그인에 필요한 정보를 조회해서 시큐리티 한테 전달
     //하는 코드를 작성
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username){
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         //로그인 하려는 회원의 정보 조회
         MemberVO member = boardService.login(username);
+
+        if(member == null){
+//            시큐리티가 아이디 검색하는데 못 얻었을때 나오는 오류임
+            throw new BadCredentialsException("error");
+        }
 
         //조회한 정보를 UserDetails 타입으로 변환
         UserDetails userInfo = User.builder()
