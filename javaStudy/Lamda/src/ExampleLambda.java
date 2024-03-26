@@ -20,13 +20,15 @@ public class ExampleLambda {
 
         Integer[] arr = {1,2,3,4,5,6,7,8,9,10};
         List<Integer> list = Arrays.asList(arr);
+        List<Integer> list1 = new ArrayList<>(list);
+
 
         System.out.println(list);
         lambda(list , a -> a%2==0);
 
         Predicate<Integer> p = a -> (a<5);
-        list.removeIf(p);
-        list.forEach(num -> System.out.println(num));
+        list1.removeIf(p);
+        list1.forEach(num -> System.out.println(num));
     }
 
     public static void lambda(List<Integer> list, Predict p){
