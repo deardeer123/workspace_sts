@@ -2,6 +2,7 @@ package com.green.basicBoard.controller;
 
 import com.green.basicBoard.service.BasicBoardService;
 import com.green.basicBoard.vo.BasicBoardVO;
+import com.green.basicBoard.vo.MemberVO;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,7 +27,27 @@ public class BasicBoardController {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @GetMapping("/test1")
+    public String test1(Model model){
+        System.out.println("test1 실행");
+        model.addAttribute("age", 30);
+        model.addAttribute("name", "hong");
+        model.addAttribute("member", new MemberVO());
 
+        return "/board_list";
+    }
+
+    @GetMapping("/test2")
+    public String test2(){
+        System.out.println("test2 실행");
+        return "/board_list";
+    }
+
+    @GetMapping("/test3")
+    public String test3(){
+        System.out.println("test3 실행");
+        return "/board_list";
+    }
 
     @GetMapping("/")
     public String start(Model model){

@@ -48,27 +48,30 @@ public class SecurityConfig {
                 //authorizeHttpRequests 메소드 안ㅇ서 인증 및 인가 관리
                 .authorizeHttpRequests(
                    c -> {
-                       //인증 및 인가 설정하는중
-                       c.requestMatchers(
-                               new AntPathRequestMatcher("/"),
-                               new AntPathRequestMatcher("/loginForm"),
-                               new AntPathRequestMatcher("/joinForm"),
-                               new AntPathRequestMatcher("/join"),
-                               new AntPathRequestMatcher("/login"),
-                               new AntPathRequestMatcher("/sample")
-//                               new AntPathRequestMatcher("/member/**")
 
-                       ).permitAll()
-                       .requestMatchers(
-                               new AntPathRequestMatcher("/admin")
-                       ).hasRole("ADMIN")
-                       .requestMatchers(
-                               new AntPathRequestMatcher("/manager")
-                       ).hasRole("MANAGER")
-                           .requestMatchers(
-                                   new AntPathRequestMatcher("/boardWriteForm")
-                           ).hasAnyRole("USER","MANAGER")
-                       .anyRequest().authenticated();
+                       c.anyRequest().permitAll();
+
+                       //인증 및 인가 설정하는중
+//                       c.requestMatchers(
+//                               new AntPathRequestMatcher("/"),
+//                               new AntPathRequestMatcher("/loginForm"),
+//                               new AntPathRequestMatcher("/joinForm"),
+//                               new AntPathRequestMatcher("/join"),
+//                               new AntPathRequestMatcher("/login"),
+//                               new AntPathRequestMatcher("/sample")
+////                               new AntPathRequestMatcher("/member/**")
+//
+//                       ).permitAll()
+//                       .requestMatchers(
+//                               new AntPathRequestMatcher("/admin")
+//                       ).hasRole("ADMIN")
+//                       .requestMatchers(
+//                               new AntPathRequestMatcher("/manager")
+//                       ).hasRole("MANAGER")
+//                           .requestMatchers(
+//                                   new AntPathRequestMatcher("/boardWriteForm")
+//                           ).hasAnyRole("USER","MANAGER")
+//                       .anyRequest().authenticated();
                    }
                    //로그인 form을 할용해서 할 것이고
                         // 로그인 설정 내용도 포함

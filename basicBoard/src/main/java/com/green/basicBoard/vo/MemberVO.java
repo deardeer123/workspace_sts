@@ -13,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 public class MemberVO {
     private String memberId;
     private String memberName;
