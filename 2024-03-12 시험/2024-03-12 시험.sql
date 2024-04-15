@@ -345,3 +345,4 @@ CREATE TABLE PYTHON_BOARD(
    read_cnt INT);
    
 SELECT * FROM python_board;
+board
