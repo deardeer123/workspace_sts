@@ -345,4 +345,17 @@ CREATE TABLE PYTHON_BOARD(
    read_cnt INT);
    
 SELECT * FROM python_board;
-board
+
+
+select * FROM board;
+SELECT 
+   CASE
+      when MAX(board_NUM) = 0 then 1
+      ELSE MAX(board_num)+1
+   END
+FROM
+board;
+
+
+SELECT * FROM board;
+DELETE FROM board WHERE board_num = board_reply11;
