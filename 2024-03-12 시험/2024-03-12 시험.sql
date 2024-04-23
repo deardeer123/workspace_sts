@@ -387,7 +387,8 @@ INSERT INTO car_info VALUES(2, 'aa' , 20000, 'kor');
 INSERT INTO sales_info VALUES(1, 'asdf', '11112222', 'red', '2024-04-22', 1);
 INSERT INTO sales_info VALUES(2, 'asdf', '11112222', 'yellow', '2024-04-22', 1);
 
-DELETE FROM car_info
-WHERE car_num = 1;
+DELETE FROM car_info;
 
 SELECT * FROM sales_info;
+
+
